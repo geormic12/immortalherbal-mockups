@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Immortal Herbal - The Elixir</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,600;1,400&family=Manrope:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07100d;--g1:#0f2a1f;--gold:#e5c77a;--gold2:#b8914a;--mist:#9fb5a6;--txt:#e9efe9;--rose:#e58f7a}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(900px 700px at 50% 0%,#12382a 0,var(--bg) 62%) fixed,var(--bg);color:var(--txt);font-family:Manrope,sans-serif;font-weight:300;font-size:16px;line-height:1.6;min-height:100vh;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;background-image:radial-gradient(1px 1px at 20% 30%,#fff8 0,transparent 100%),radial-gradient(1px 1px at 70% 20%,#fff6 0,transparent 100%),radial-gradient(1.5px 1.5px at 85% 60%,#e5c77a99 0,transparent 100%),radial-gradient(1px 1px at 35% 75%,#fff5 0,transparent 100%),radial-gradient(1px 1px at 55% 50%,#fff4 0,transparent 100%);pointer-events:none}
+header{display:flex;justify-content:center;padding:26px;font-family:Cormorant,serif;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);font-size:1rem}
+.hero{text-align:center;padding:30px 20px 0}
+.hero p.k{font-family:Cormorant,serif;font-style:italic;color:var(--mist);font-size:1.25rem;margin:0}
+h1{font-family:Cormorant,serif;font-weight:400;font-size:clamp(2.4rem,6vw,4.6rem);line-height:1.05;margin:8px 0 26px;background:linear-gradient(#fff,var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.ask{max-width:640px;margin:0 auto;position:relative}
+.ask input{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(229,199,122,.5);border-radius:60px;padding:18px 150px 18px 28px;color:var(--txt);font:300 1.15rem Manrope;outline:0;box-shadow:0 0 40px rgba(229,199,122,.12)}
+.ask button{position:absolute;right:6px;top:6px;bottom:6px;border:0;border-radius:50px;padding:0 24px;background:linear-gradient(var(--gold),var(--gold2));color:#1a1408;font:600 .85rem Manrope;letter-spacing:.08em;cursor:pointer}
+.chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:16px 0 0;font-size:.78rem;color:var(--mist)}
+.chips span{border:1px solid rgba(159,181,166,.35);border-radius:30px;padding:3px 14px}
+.stage{max-width:1100px;margin:10px auto 0;padding:0 20px;display:grid;grid-template-columns:1.15fr 1fr;gap:30px;align-items:center}
+@media(max-width:880px){.stage{grid-template-columns:1fr}}
+.orbit{width:100%;aspect-ratio:1;max-width:560px;margin:0 auto}
+.orbit text{font-family:Manrope;fill:var(--txt)}
+.node{cursor:pointer}.node circle.d{transition:all .35s}
+.node:hover circle.d{filter:drop-shadow(0 0 10px var(--gold))}
+.ringlab{font-size:9px;letter-spacing:.22em;fill:var(--mist)!important;text-transform:uppercase}
+.panel{background:rgba(255,255,255,.035);border:1px solid rgba(229,199,122,.28);border-radius:22px;padding:26px 28px;backdrop-filter:blur(8px)}
+.panel .lv{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.panel h2{font-family:Cormorant,serif;font-weight:400;font-size:2.4rem;line-height:1.05;margin:4px 0 0}
+.panel h2 i{display:block;font-size:1.05rem;color:var(--mist)}
+.panel p{margin:12px 0 0}
+.panel .dose{font-size:.88rem;color:var(--mist);border-left:2px solid var(--gold2);padding-left:12px}
+.panel .flag{font-size:.88rem;color:var(--rose);border-left:2px solid var(--rose);padding-left:12px}
+.tog{margin-top:18px;border:1px solid var(--gold);background:transparent;color:var(--gold);border-radius:40px;padding:11px 24px;font:600 .8rem Manrope;letter-spacing:.12em;cursor:pointer;text-transform:uppercase}
+.tog.on{background:var(--gold);color:#1a1408}.tog:disabled{opacity:.35;cursor:default}
+/* elixir */
+.elixir{max-width:1100px;margin:50px auto 0;padding:0 20px;display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
+@media(max-width:880px){.elixir{grid-template-columns:1fr}}
+.mandala{width:100%;max-width:420px;margin:0 auto;display:block}
+.eh{font-family:Cormorant,serif;font-size:clamp(2rem,4vw,3rem);font-weight:400;line-height:1.05;margin:0 0 6px}
+.eh em{color:var(--gold)}
+.parts{list-style:none;padding:0;margin:14px 0}
+.parts li{display:flex;align-items:center;gap:12px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.parts i{width:12px;height:12px;border-radius:50%;background:var(--c);box-shadow:0 0 12px var(--c)}
+.parts span{flex:1}.parts b{font-weight:600;color:var(--gold)}
+.dial{display:flex;gap:10px;margin:18px 0 6px}
+.dial button{flex:1;padding:13px 0;border-radius:14px;border:1px solid rgba(229,199,122,.4);background:transparent;color:var(--txt);font:400 1.3rem Cormorant,serif;cursor:pointer}
+.dial button small{display:block;font:300 .62rem Manrope;letter-spacing:.14em;color:var(--mist);text-transform:uppercase}
+.dial .on{background:linear-gradient(rgba(229,199,122,.28),rgba(229,199,122,.1));border-color:var(--gold)}
+.sum{display:flex;justify-content:space-between;align-items:flex-end;margin:14px 0}
+.sum div span{font:400 2.4rem Cormorant,serif;line-height:1;color:#fff}.sum small{display:block;color:var(--mist);font-size:.78rem}
+.cta{width:100%;border:0;border-radius:60px;padding:18px;background:linear-gradient(var(--gold),var(--gold2));color:#1a1408;font:600 .9rem Manrope;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;box-shadow:0 0 50px rgba(229,199,122,.25)}
+.fine{font-size:.78rem;color:var(--mist);margin:10px 0 0;text-align:center}
+/* moon timeline */
+.moons{max-width:1100px;margin:46px auto 0;padding:0 20px}
+.moons h3{font-family:Cormorant,serif;font-weight:400;font-size:1.9rem;margin:0}
+.moons p{color:var(--mist);margin:2px 0 14px}
+.track{display:grid;grid-template-columns:repeat(28,1fr);gap:3px}
+.track div{aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.07);transition:all .4s;position:relative}
+.track .early{background:rgba(229,199,122,.45)}.track .full{background:var(--gold);box-shadow:0 0 14px rgba(229,199,122,.7)}
+.tl{display:flex;justify-content:space-between;font-size:.72rem;color:var(--mist);margin-top:6px;letter-spacing:.1em}
+.warn{max-width:760px;margin:30px auto 0;text-align:center;font-size:.84rem;color:var(--mist);padding:0 20px}
+footer{text-align:center;color:#6f8578;font-size:.76rem;padding:30px 20px 50px}
+</style></head><body>
+<header>Immortal Herbal</header>
+<section class="hero">
+  <p class="k">Build your herb cabinet</p>
+  <h1>Tell us what keeps you<br>from your best life.</h1>
+  <div class="ask"><input value="I can't fall asleep at night" aria-label="Search"><button>FIND MY HERBS</button></div>
+  <div class="chips"><span>Female</span><span>35&ndash;49</span><span>No medicines</span><span>Not pregnant</span><span>sample data</span></div>
+</section>
+
+<section class="stage">
+  <svg class="orbit" id="orbit" viewBox="-300 -300 600 600"></svg>
+  <div class="panel" id="panel"></div>
+</section>
+
+<section class="elixir">
+  <svg class="mandala" id="mandala" viewBox="-150 -150 300 300"></svg>
+  <div>
+    <h2 class="eh">Your <em>Evening Calm</em> elixir</h2>
+    <ul class="parts" id="parts"></ul>
+    <div class="dial" id="dial"><button data-d="7">7<small>nights</small></button><button data-d="14" class="on">14<small>nights</small></button><button data-d="30">30<small>nights</small></button><button data-d="60">60<small>nights</small></button></div>
+    <div class="sum"><div><span id="g">84 g</span><small id="gs">one pouch &middot; 6 g a night</small></div><div style="text-align:right"><span id="p">$12</span><small>sample price</small></div></div>
+    <button class="cta">Reserve my blend</button>
+    <p class="fine">No payment today. We will email you when the first batches are ready.</p>
+  </div>
+</section>
+
+<section class="moons">
+  <h3>When you may feel it</h3><p id="mp"></p>
+  <div class="track" id="track"></div>
+  <div class="tl"><span>night 1</span><span>week 1</span><span>week 2</span><span>week 3</span><span>week 4</span></div>
+</section>
+<p class="warn">Natural support alongside your care. Check with your pharmacist if you take medication. Not for use in pregnancy.</p>
+<footer>Educational information, not medical advice. Talk to your doctor or pharmacist, especially if you take medicine.</footer>
+
+<script>
+const HERBS=[
+ {id:'val',n:'Valerian',l:'Valeriana officinalis',lvl:1,g:1.5,wk:[2,4],c:'#c9a37a',dose:'0.3-3 g in a cup of hot water at bedtime',src:'EMA monograph, sleep disorders',note:'Trials suggest it may shorten the time to fall asleep. Effects build over 2-4 weeks.',flag:'Can cause drowsiness. Avoid with alcohol or sedatives.'},
+ {id:'lem',n:'Lemon balm',l:'Melissa officinalis',lvl:1,g:2,wk:[1,2],c:'#b7d46a',dose:'1.5-4.5 g as tea, up to 3 times a day',src:'EMA monograph, mild stress and sleep',note:'Used for calm and mild sleep trouble. Small trials, gentle profile.',flag:'Ask your clinician first if you take a thyroid medicine.'},
+ {id:'pas',n:'Passionflower',l:'Passiflora incarnata',lvl:2,g:1,wk:[1,2],c:'#c58de0',dose:'0.5-2 g as tea, 1-4 times a day',src:'EMA monograph',note:'Widely used for restlessness. Evidence is mixed but consistent in direction.',flag:''},
+ {id:'cha',n:'Chamomile',l:'Matricaria chamomilla',lvl:2,g:1.5,wk:[1,2],c:'#f2dc7a',dose:'2-8 g as tea, 3-4 times a day',src:'EMA monograph',note:'A gentle evening classic for calm and digestion.',flag:'Avoid if allergic to daisy-family plants.'},
+ {id:'hop',n:'Hops',l:'Humulus lupulus',lvl:3,g:0,wk:[0,0],c:'#9fb5a6',dose:'',src:'',note:'Traditional bedtime herb, often paired with valerian. Not in your blend: no verified dried-herb dose yet.',flag:'',off:true}
+];
+const R={1:90,2:165,3:240};const POS={val:-100,lem:-20,pas:-60,cha:40,hop:-80};
+const sel=new Set(['val','lem','pas','cha']);let cur='val',days=14;const $=id=>document.getElementById(id);
+function orbit(){
+  let s='<defs><radialGradient id="core"><stop offset="0" stop-color="#e5c77a" stop-opacity=".9"/><stop offset="1" stop-color="#e5c77a" stop-opacity="0"/></radialGradient></defs><circle r="60" fill="url(#core)" opacity=".5"/>';
+  [1,2,3].forEach(k=>{s+=`<circle r="${R[k]}" fill="none" stroke="${k===3?'#9fb5a655':'#e5c77a55'}" stroke-width="1" ${k===3?'stroke-dasharray="3 6"':''}/><text class="ringlab" x="0" y="${R[k]+14}" text-anchor="middle">Level ${k} &middot; ${['','studied','general agreement','folk'][k]}</text>`});
+  s+='<text x="0" y="5" text-anchor="middle" font-family="Cormorant" font-size="17" style="fill:#e5c77a!important" font-style="italic">you</text>';
+  const ang={val:-130,lem:-40,pas:-20,cha:15,hop:-95};
+  HERBS.forEach(h=>{const a=ang[h.id]*Math.PI/180,x=Math.cos(a)*R[h.lvl],y=Math.sin(a)*R[h.lvl],on=sel.has(h.id),act=cur===h.id;
+    s+=`<g class="node" data-id="${h.id}" transform="translate(${x} ${y})"><circle r="${act?30:24}" fill="none" stroke="#e5c77a" stroke-width="${act?1.5:0}" opacity=".7"/><circle class="d" r="${on?18:14}" fill="${on?h.c:'#0b1a14'}" stroke="${h.c}" stroke-width="1.5" ${h.off?'stroke-dasharray="3 3"':''}/><text y="${on?36:32}" text-anchor="middle" font-size="12" font-weight="400">${h.n}</text></g>`});
+  $('orbit').innerHTML=s;
+  document.querySelectorAll('.node').forEach(n=>n.onclick=()=>{cur=n.dataset.id;all()});
+}
+function panel(){
+  const h=HERBS.find(x=>x.id===cur);
+  $('panel').innerHTML=`<div class="lv">Level ${h.lvl} &middot; ${['','studied in people','general agreement','folk use'][h.lvl]}</div><h2>${h.n}<i>${h.l}</i></h2><p>${h.note}</p>${h.dose?`<p class="dose">${h.dose}<br><small style="color:#7f9588">${h.src}</small></p>`:''}${h.flag?`<p class="flag">${h.flag}</p>`:''}<button class="tog ${sel.has(h.id)?'on':''}" ${h.off?'disabled':''} id="tg">${h.off?'Not currently carried':sel.has(h.id)?'✓ In your elixir':'Add to your elixir'}</button>`;
+  const t=$('tg');t.onclick=()=>{sel.has(h.id)?sel.delete(h.id):sel.add(h.id);all()};
+}
+function mandala(){
+  const L=HERBS.filter(h=>sel.has(h.id)),tot=L.reduce((a,h)=>a+h.g,0);
+  let s='<circle r="140" fill="none" stroke="#e5c77a33"/><circle r="70" fill="none" stroke="#e5c77a22"/>';
+  for(let i=0;i<12;i++)s+=`<line x1="0" y1="-140" x2="0" y2="-148" stroke="#e5c77a88" transform="rotate(${i*30})"/>`;
+  let a0=-Math.PI/2;
+  L.forEach(h=>{const a1=a0+h.g/tot*2*Math.PI,gap=.04,r1=116,r2=78;const A=a0+gap,B=a1-gap;
+    const p=(r,a)=>`${Math.cos(a)*r} ${Math.sin(a)*r}`,big=(B-A)>Math.PI?1:0;
+    s+=`<path d="M${p(r1,A)}A${r1} ${r1} 0 ${big} 1 ${p(r1,B)}L${p(r2,B)}A${r2} ${r2} 0 ${big} 0 ${p(r2,A)}Z" fill="${h.c}" opacity=".88" style="filter:drop-shadow(0 0 8px ${h.c}88)"/>`;a0=a1});
+  s+=`<text y="-2" text-anchor="middle" font-family="Cormorant" font-size="34" fill="#e5c77a">${tot}<tspan font-size="14"> g</tspan></text><text y="16" text-anchor="middle" font-size="8" letter-spacing="2" fill="#9fb5a6">PER NIGHT</text>`;
+  $('mandala').innerHTML=s;
+  $('parts').innerHTML=L.length?L.map(h=>`<li><i style="--c:${h.c}"></i><span>${h.n}</span><b>${h.g} g</b></li>`).join(''):'<li style="color:#9fb5a6">Choose a herb from the circle.</li>';
+  $('g').textContent=Math.round(tot*days)+' g';$('gs').textContent=`one pouch · ${tot} g a night · ${days} nights`;
+  $('p').textContent='$'+(L.length?Math.round(4+tot*days*.095):0);
+  const a=L.length?Math.max(...L.map(h=>h.wk[0])):0,b=L.length?Math.max(...L.map(h=>h.wk[1])):0;
+  $('mp').textContent=L.length?`Some people notice a change from week ${a}. Full effect can take up to ${b} weeks. If nothing changes after ${b} weeks, talk to your clinician.`:'Add a herb to see the timeline.';
+  $('track').innerHTML=Array.from({length:28},(_,i)=>{const w=i/7+.14;return `<div class="${!L.length?'':w>=b?'full':w>=a-1?'early':''}"></div>`}).join('');
+}
+function all(){orbit();panel();mandala()}
+document.querySelectorAll('#dial button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#dial button').forEach(x=>x.classList.remove('on'));b.classList.add('on');days=+b.dataset.d;mandala()});
+all();
+</script></body></html>

@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Immortal Herbal - A Field Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,800;1,400&family=Newsreader:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bone:#f4efe3;--ink:#16211a;--green:#2f4a33;--verm:#c8402a;--line:#16211a;--mute:#6b7466}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bone);color:var(--ink);font-family:Newsreader,serif;font-size:19px;line-height:1.55}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+nav{display:flex;justify-content:space-between;padding:20px 0;border-bottom:3px double var(--ink);font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
+.hero{display:grid;grid-template-columns:1.4fr 1fr;gap:40px;padding:54px 0 30px;align-items:end}
+@media(max-width:860px){.hero{grid-template-columns:1fr}}
+.vol{font-family:'JetBrains Mono',monospace;font-size:.75rem;letter-spacing:.14em;color:var(--verm);text-transform:uppercase}
+h1{font-family:'Playfair Display',serif;font-weight:800;font-size:clamp(3rem,9vw,7rem);line-height:.92;margin:10px 0 18px;letter-spacing:-.02em}
+h1 em{font-weight:400;color:var(--green)}
+.ask{border:2px solid var(--ink);display:flex;background:#fff}
+.ask input{flex:1;border:0;padding:16px 18px;font:italic 1.35rem Newsreader,serif;background:transparent;outline:0;min-width:0}
+.ask button{border:0;background:var(--ink);color:var(--bone);font-family:'JetBrains Mono',monospace;letter-spacing:.1em;padding:0 22px;cursor:pointer;font-size:.78rem}
+.meta{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--mute);margin-top:10px}
+.hero svg{width:100%;height:auto;max-height:420px}
+.rule{display:flex;gap:18px;align-items:center;margin:34px 0 8px;font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase}
+.rule:before,.rule:after{content:"";flex:1;border-top:1px solid var(--ink)}
+.plate{display:grid;grid-template-columns:1fr 1fr;gap:0;border:2px solid var(--ink);margin:26px 0;background:#faf6ea;position:relative}
+.plate:nth-of-type(even) .art{order:2}
+@media(max-width:860px){.plate{grid-template-columns:1fr}.plate:nth-of-type(even) .art{order:0}}
+.art{border-right:2px solid var(--ink);padding:18px;display:flex;flex-direction:column;justify-content:space-between;background:
+ repeating-linear-gradient(0deg,transparent 0 23px,rgba(22,33,26,.06) 23px 24px)}
+.plate:nth-of-type(even) .art{border-right:0;border-left:2px solid var(--ink)}
+.art svg{width:100%;height:300px}
+.cap{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;display:flex;justify-content:space-between;border-top:1px solid var(--ink);padding-top:8px}
+.txt{padding:26px 30px}
+.lvl{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;border:1.5px solid var(--ink);padding:2px 9px}
+.l1{background:var(--ink);color:var(--bone)}.l2{background:var(--green);color:var(--bone);border-color:var(--green)}.l3{border-style:dashed}
+.txt h3{font-family:'Playfair Display',serif;font-size:2.5rem;line-height:1;margin:12px 0 2px}
+.txt h3 i{display:block;font-weight:400;font-size:1.05rem;color:var(--mute);margin-top:6px}
+.margin{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:.95rem;margin:14px 0}
+.margin dt{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);padding-top:4px}
+.margin dd{margin:0}
+.stamp{display:inline-block;border:2px solid var(--verm);color:var(--verm);font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;transform:rotate(-1.5deg);margin:4px 0}
+.use{margin-top:12px;font-family:'JetBrains Mono',monospace;font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;background:transparent;border:2px solid var(--ink);padding:10px 16px;cursor:pointer}
+.use.on{background:var(--ink);color:var(--bone)}
+.use:disabled{opacity:.4;cursor:default}
+/* recipe card */
+.card{display:grid;grid-template-columns:1.1fr 1fr;border:2px solid var(--ink);background:var(--green);color:var(--bone);margin:34px 0 20px}
+@media(max-width:860px){.card{grid-template-columns:1fr}}
+.card .l{padding:30px 34px}.card .r{padding:30px 34px;background:var(--bone);color:var(--ink);border-left:2px solid var(--ink)}
+.card h2{font-family:'Playfair Display',serif;font-size:2.8rem;line-height:1;margin:6px 0 14px}
+.card h2 em{font-weight:400}
+.ing{list-style:none;padding:0;margin:0}
+.ing li{display:flex;align-items:baseline;gap:8px;padding:6px 0;font-size:1.05rem}
+.ing li span.d{flex:1;border-bottom:1px dotted rgba(244,239,227,.5);transform:translateY(-4px)}
+.ing b{font-family:'JetBrains Mono',monospace;font-weight:500}
+.how{border-top:1px solid rgba(244,239,227,.4);margin-top:12px;padding-top:12px;font-size:.98rem}
+.days{display:flex;gap:0;border:2px solid var(--ink);margin:6px 0 16px}
+.days button{flex:1;background:transparent;border:0;border-right:2px solid var(--ink);font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:800;padding:8px 0;cursor:pointer}
+.days button:last-child{border-right:0}.days .on{background:var(--ink);color:var(--bone)}
+.lab{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.num{font-family:'Playfair Display',serif;font-size:3.2rem;font-weight:800;line-height:1}
+.num small{font-family:Newsreader;font-weight:400;font-size:1rem;color:var(--mute)}
+.go{width:100%;margin-top:14px;background:var(--verm);color:#fff;border:0;font-family:'JetBrains Mono',monospace;letter-spacing:.14em;text-transform:uppercase;padding:16px;cursor:pointer;font-size:.85rem}
+.fine{font-size:.82rem;color:var(--mute);margin:8px 0 0}
+/* growth timeline */
+.grow{border:2px solid var(--ink);padding:22px 26px;margin-bottom:20px;background:#faf6ea;display:grid;grid-template-columns:1fr 1.3fr;gap:26px;align-items:center}
+@media(max-width:860px){.grow{grid-template-columns:1fr}}
+.grow h3{font-family:'Playfair Display',serif;font-size:1.9rem;margin:6px 0}
+.grow input[type=range]{width:100%;accent-color:var(--verm)}
+.grow svg{width:100%;height:170px}
+.wk{display:flex;justify-content:space-between}
+footer{border-top:3px double var(--ink);margin-top:30px;padding:20px 0 50px;font-size:.82rem;color:var(--mute);text-align:center}
+</style></head><body>
+<div class="wrap">
+<nav><span>Immortal Herbal</span><span>A field guide to building your herb cabinet</span><span>Vol. I &middot; Sleep</span></nav>
+
+<section class="hero">
+  <div>
+    <div class="vol">Plate index &middot; entry for: sleep</div>
+    <h1>A field guide<br>to <em>sleeping</em><br>again.</h1>
+    <div class="ask"><input value="I can't fall asleep at night" aria-label="Search"><button>FIND HERBS</button></div>
+    <div class="meta">Female &middot; 35&ndash;49 &middot; no medicines &middot; not pregnant &middot; sample data</div>
+  </div>
+  <svg id="heroart" viewBox="0 0 300 380"></svg>
+</section>
+
+<div class="rule">Specimens, ranked by evidence</div>
+<div id="plates"></div>
+
+<div class="rule">Your recipe</div>
+<div class="card">
+  <div class="l">
+    <div class="vol" style="color:#e6b8a6">Recipe card no. 1 &middot; compounded for you</div>
+    <h2>Evening Calm, <em>blended</em></h2>
+    <ul class="ing" id="ing"></ul>
+    <div class="how" id="how"></div>
+  </div>
+  <div class="r">
+    <div class="lab">How many nights</div>
+    <div class="days" id="days"><button data-d="7">7</button><button data-d="14" class="on">14</button><button data-d="30">30</button><button data-d="60">60</button></div>
+    <div class="lab">One pouch</div><div class="num" id="g">84 g <small id="gd">14 nights</small></div>
+    <div class="lab" style="margin-top:14px">Sample price</div><div class="num" id="p">$12</div>
+    <button class="go">Reserve my blend</button>
+    <p class="fine">No payment today. We will email you when the first batches are ready.</p>
+  </div>
+</div>
+
+<div class="grow">
+  <div>
+    <div class="lab">When to expect results</div>
+    <h3 id="gt">Weeks 1&ndash;4</h3>
+    <p id="gp" style="margin:0 0 12px"></p>
+    <div class="lab">Drag through the weeks</div>
+    <input type="range" id="wk" min="0" max="4" value="2">
+    <div class="wk lab"><span>start</span><span>1</span><span>2</span><span>3</span><span>4 wks</span></div>
+  </div>
+  <svg id="growsvg" viewBox="0 0 500 170"></svg>
+</div>
+<p class="fine" style="text-align:center">Natural support alongside your care. Check with your pharmacist if you take medication. Not for use in pregnancy.</p>
+<footer>Educational information, not medical advice. Talk to your doctor or pharmacist, especially if you take medicine.</footer>
+</div>
+
+<script>
+const S='stroke="#16211a" stroke-width="1.6" stroke-linecap="round" fill="none"';
+function leaf(x,y,a,L,W,fill){return `<g transform="translate(${x} ${y}) rotate(${a})"><path d="M0 0C${W} ${-L*.3} ${W} ${-L*.8} 0 ${-L}C${-W} ${-L*.8} ${-W} ${-L*.3} 0 0Z" ${S} fill="${fill||'#dfe6cd'}"/><path d="M0 0V${-L*.92}" ${S} stroke-width="1"/>${[.25,.45,.65].map(t=>`<path d="M0 ${-L*t}l${W*.6} ${-L*.12}M0 ${-L*t}l${-W*.6} ${-L*.12}" ${S} stroke-width=".8"/>`).join('')}</g>`}
+function daisy(x,y,r,n){let s='';for(let i=0;i<n;i++){s+=`<ellipse cx="0" cy="${-r}" rx="${r*.28}" ry="${r*.62}" transform="rotate(${i*360/n})" ${S} fill="#fff"/>`}return `<g transform="translate(${x} ${y})">${s}<circle r="${r*.35}" ${S} fill="#e6c55a"/></g>`}
+function umbel(x,y,r){let s='';for(let i=0;i<22;i++){const a=i*2.4,d=r*Math.sqrt(i/22);s+=`<circle cx="${Math.cos(a)*d}" cy="${Math.sin(a)*d*.6}" r="3.2" ${S} fill="#f3d3d3"/>`}return `<g transform="translate(${x} ${y})">${s}</g>`}
+function passion(x,y,r){let s='';for(let i=0;i<10;i++)s+=`<ellipse cx="0" cy="${-r*.72}" rx="${r*.14}" ry="${r*.32}" transform="rotate(${i*36})" ${S} fill="#f2e6f5"/>`;let f='';for(let i=0;i<40;i++){const a=i*9;f+=`<path d="M0 0L${Math.cos(a*Math.PI/180)*r*.5} ${Math.sin(a*Math.PI/180)*r*.5}" stroke="#7a4a8a" stroke-width=".7"/>`}return `<g transform="translate(${x} ${y})">${s}${f}<circle r="${r*.16}" ${S} fill="#d9a6e6"/><path d="M0 0l-4 -8M0 0l4 -8M0 0l0 8" ${S}/></g>`}
+const ART={
+ val:()=>`<path d="M150 360C146 280 156 200 150 90" ${S}/>${leaf(150,300,-62,60,14)}${leaf(150,300,62,60,14)}${leaf(150,240,-52,54,12)}${leaf(150,240,52,54,12)}${leaf(150,180,-42,46,10)}${leaf(150,180,42,46,10)}${umbel(150,70,40)}<path d="M150 360l-22 12M150 360l24 10M150 360l-6 14" ${S}/>`,
+ lem:()=>`<path d="M150 360C154 280 144 200 150 70" ${S}/>${[310,250,190,130].map((y,i)=>leaf(150,y,-70+i*4,58-i*6,26)+leaf(150,y,70-i*4,58-i*6,26)).join('')}${leaf(150,70,0,40,18)}`,
+ pas:()=>`<path d="M150 360C130 300 175 240 150 190C130 150 160 110 150 80" ${S}/>${passion(150,70,46)}<path d="M150 230C190 220 200 250 180 262C165 270 168 250 180 250" ${S}/>${leaf(150,310,-70,56,22,'#d9e3c4')}${leaf(150,260,70,56,22,'#d9e3c4')}${leaf(150,200,-60,50,20,'#d9e3c4')}`,
+ cha:()=>`<path d="M110 360C110 280 100 200 112 130M190 360C190 270 200 190 188 110M150 360C150 300 156 240 150 170" ${S}/>${daisy(112,118,22,13)}${daisy(188,98,22,13)}${daisy(150,160,18,12)}<path d="M112 300l-26 -22M112 300l24 -22M188 300l-26 -22M188 300l24 -22M150 300l-18 -14M150 300l18 -14" ${S}/>`,
+ hop:()=>`<path d="M60 360C90 300 150 280 190 190C210 140 200 100 220 60" ${S}/>${[[120,290,-30],[150,250,40],[180,200,-40],[205,150,40]].map(a=>leaf(a[0],a[1],a[2],48,20,'#e2ead0')).join('')}${[[200,110],[230,150]].map(c=>`<g transform="translate(${c[0]} ${c[1]})">${[0,1,2,3].map(i=>`<ellipse cx="0" cy="${i*10}" rx="${13-i*2}" ry="8" ${S} fill="#d6e2a8"/>`).join('')}</g>`).join('')}`
+};
+const HERBS=[
+ {id:'val',n:'Valerian',l:'Valeriana officinalis',lvl:1,g:1.5,wk:[2,4],dose:'0.3–3 g in a cup of hot water at bedtime',src:'EMA monograph, sleep disorders',note:'Trials suggest it may shorten the time to fall asleep. Effects build over 2–4 weeks.',flag:'Can cause drowsiness. Avoid with alcohol or sedatives.',part:'root'},
+ {id:'lem',n:'Lemon balm',l:'Melissa officinalis',lvl:1,g:2,wk:[1,2],dose:'1.5–4.5 g as tea, up to 3 times a day',src:'EMA monograph, mild stress and sleep',note:'Used for calm and mild sleep trouble. Small trials, gentle profile.',flag:'Ask your clinician first if you take a thyroid medicine.',part:'leaf'},
+ {id:'pas',n:'Passionflower',l:'Passiflora incarnata',lvl:2,g:1,wk:[1,2],dose:'0.5–2 g as tea, 1–4 times a day',src:'EMA monograph',note:'Widely used for restlessness. Evidence is mixed but consistent in direction.',flag:'',part:'herb'},
+ {id:'cha',n:'Chamomile',l:'Matricaria chamomilla',lvl:2,g:1.5,wk:[1,2],dose:'2–8 g as tea, 3–4 times a day',src:'EMA monograph',note:'A gentle evening classic for calm and digestion.',flag:'Avoid if allergic to daisy-family plants.',part:'flower'},
+ {id:'hop',n:'Hops',l:'Humulus lupulus',lvl:3,g:0,wk:[0,0],dose:'',src:'',note:'Traditional bedtime herb, often paired with valerian. Not in your blend: no verified dried-herb dose yet.',flag:'',off:true}
+];
+const sel=new Set(['val','lem','pas','cha']);let days=14;const $=id=>document.getElementById(id);
+$('heroart').innerHTML=`<g transform="translate(-10 0)">${ART.val()}</g><g transform="translate(70 40) scale(.8)">${ART.cha()}</g>`;
+const roman=['I','II','III','IV','V'];
+function plates(){
+ $('plates').innerHTML=HERBS.map((h,i)=>`<article class="plate"><div class="art"><svg viewBox="0 0 300 380">${ART[h.id]()}</svg><div class="cap"><span>Plate ${roman[i]}</span><span>${h.l}</span></div></div>
+ <div class="txt"><span class="lvl l${h.lvl}">Level ${h.lvl} &middot; ${['','studied in people','general agreement','folk use'][h.lvl]}</span>
+ <h3>${h.n}<i>${h.l}</i></h3><p>${h.note}</p>
+ ${h.dose?`<dl class="margin"><dt>Dose</dt><dd>${h.dose}</dd><dt>Source</dt><dd>${h.src}</dd><dt>Part</dt><dd>${h.part}</dd></dl>`:''}
+ ${h.flag?`<span class="stamp">Caution</span><p style="margin:4px 0 0;font-size:.95rem">${h.flag}</p>`:''}
+ <button class="use ${sel.has(h.id)?'on':''}" data-id="${h.id}" ${h.off?'disabled':''}>${h.off?'Not currently carried':sel.has(h.id)?'✓ In my blend':'Add to my blend'}</button></div></article>`).join('');
+ document.querySelectorAll('.use').forEach(b=>b.onclick=()=>{const id=b.dataset.id;sel.has(id)?sel.delete(id):sel.add(id);plates();calc()});
+}
+function calc(){
+ const L=HERBS.filter(h=>sel.has(h.id)),tot=L.reduce((a,h)=>a+h.g,0);
+ $('ing').innerHTML=L.length?L.map(h=>`<li>${h.n} ${h.part}<span class="d"></span><b>${h.g} g</b></li>`).join(''):'<li>Add a specimen above.</li>';
+ $('how').innerHTML=L.length?`Steep <b>${tot} g</b> (about ${Math.max(1,Math.round(tot/3))} heaped teaspoons) in a cup of hot water for 10 minutes. 1 cup, 45 minutes before bed.`:'';
+ $('g').firstChild.textContent=Math.round(tot*days)+' g ';$('gd').textContent=days+' nights';
+ $('p').textContent='$'+(L.length?Math.round(4+tot*days*.095):0);
+ const a=L.length?Math.max(...L.map(h=>h.wk[0])):0,b=L.length?Math.max(...L.map(h=>h.wk[1])):0;
+ $('gt').textContent=L.length?`Weeks ${a}–${b}`:'—';
+ $('gp').textContent=L.length?`Some people notice calmer evenings from week ${a}. Full effect can take up to ${b} weeks. If there is no change after ${b} weeks, talk to your clinician.`:'Add a herb to see the timeline.';
+ window._ab=[a,b];draw();
+}
+function draw(){
+ const [a,b]=window._ab||[1,4],w=+$('wk').value;
+ const prog=w===0?0:Math.min(1,w/(b||4)),stems=[110,200,290,380];
+ let s=`<line x1="10" y1="150" x2="490" y2="150" ${S}/>`;
+ for(let i=0;i<=4;i++)s+=`<line x1="${10+i*120}" y1="145" x2="${10+i*120}" y2="155" ${S}/><text x="${10+i*120}" y="168" font-family="JetBrains Mono" font-size="10" text-anchor="middle" fill="#6b7466">${i?'wk '+i:'start'}</text>`;
+ s+=`<rect x="${10+(a-1)*120}" y="136" width="${(b-a+1)*120}" height="8" fill="#c8402a" opacity=".35"/>`;
+ stems.forEach((x,i)=>{const h=Math.max(8,(30+i%2*18)+prog*(90+i*6)*(w===0?0:1));s+=`<path d="M${x} 150C${x+4} ${150-h*.5} ${x-4} ${150-h*.8} ${x} ${150-h}" ${S}/>`;
+  if(prog>0)s+=leaf(x,150-h*.5,-60,14+prog*20,6+prog*5)+leaf(x,150-h*.7,60,14+prog*18,6+prog*5);
+  if(prog>=.6)s+=daisy(x,150-h-6,6+prog*8,10)});
+ s+=`<g transform="translate(${10+Math.min(w,4)*120} 0)"><line y1="10" y2="146" stroke="#c8402a" stroke-width="1.5" stroke-dasharray="4 3"/></g>`;
+ $('growsvg').innerHTML=s;
+}
+document.querySelectorAll('#days button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#days button').forEach(x=>x.classList.remove('on'));b.classList.add('on');days=+b.dataset.d;calc()});
+$('wk').oninput=draw;plates();calc();
+</script></body></html>

@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Immortal Herbal - The Apothecary Wall</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=IM+Fell+English:ital@0;1&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+:root{--wood:#2b1b12;--wood2:#3d281a;--brass:#d6b25e;--brass2:#8a6a2a;--paper:#f0e2c3;--ink:#2a1d12;--green:#4d6b3a;--red:#a8452a}
+*{box-sizing:border-box}
+body{margin:0;color:#f0e2c3;font-family:'IM Fell English',serif;font-size:18px;
+ background:radial-gradient(1200px 600px at 50% -10%,#5a3a22 0,transparent 70%),repeating-linear-gradient(90deg,#2b1b12 0 7px,#2f1e14 7px 9px,#27180f 9px 16px);min-height:100vh}
+header{display:flex;justify-content:space-between;align-items:center;padding:16px 5vw;border-bottom:2px solid var(--brass2);background:rgba(0,0,0,.25)}
+.brand{font-family:Cinzel,serif;font-weight:700;letter-spacing:.22em;color:var(--brass);font-size:1.05rem}
+.brand small{display:block;font-family:'IM Fell English';font-style:italic;letter-spacing:.05em;color:#cdb98d;font-size:.8rem}
+/* prescription pad search */
+.pad{max-width:720px;margin:38px auto 10px;padding:0 20px}
+.pad .sheet{background:var(--paper);color:var(--ink);padding:22px 26px 20px;transform:rotate(-.6deg);box-shadow:0 14px 30px rgba(0,0,0,.5);position:relative;
+ background-image:repeating-linear-gradient(transparent 0 33px,rgba(120,90,50,.25) 33px 34px)}
+.pad .sheet:before{content:"\211E";position:absolute;right:22px;top:6px;font-size:3.4rem;font-family:serif;color:rgba(168,69,42,.7)}
+.pad label{font-family:'Special Elite',monospace;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:#7a5a38}
+.pad input{display:block;width:100%;margin-top:6px;border:0;background:transparent;font:italic 1.9rem 'IM Fell English',serif;color:#1d2a52;border-bottom:2px solid #1d2a52;padding:4px 0;outline:0}
+.pad .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;font-family:'Special Elite',monospace;font-size:.78rem}
+.pad .row span{border:1px dashed #7a5a38;padding:3px 9px}
+h2.wt{font-family:Cinzel,serif;text-align:center;color:var(--brass);letter-spacing:.2em;font-size:1rem;margin:34px 0 6px}
+p.lede{text-align:center;margin:0 auto 22px;font-style:italic;color:#cdb98d;max-width:560px;padding:0 20px}
+/* cabinet */
+.cabinet{max-width:1060px;margin:0 auto;padding:0 20px 30px;display:grid;grid-template-columns:1.25fr 1fr;gap:26px;align-items:start}
+@media(max-width:860px){.cabinet{grid-template-columns:1fr}}
+.wall{background:linear-gradient(#3a2618,#2a1b11);border:6px solid #1a0f08;box-shadow:inset 0 0 40px rgba(0,0,0,.7),0 10px 30px rgba(0,0,0,.5);padding:14px;display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.drawer{position:relative;height:96px;perspective:600px;cursor:pointer}
+.drawer .front{position:absolute;inset:0;background:linear-gradient(#5a3b25,#46301f);border:2px solid #1c1008;border-radius:3px;display:flex;align-items:center;justify-content:center;
+ box-shadow:inset 0 2px 0 rgba(255,255,255,.12),0 4px 8px rgba(0,0,0,.5);transition:transform .35s cubic-bezier(.3,1.4,.5,1)}
+.drawer:hover .front{transform:translateY(8px)}
+.drawer.in .front{transform:translateY(16px)}
+.label{background:var(--paper);color:var(--ink);padding:3px 12px 4px;border:2px solid var(--brass2);text-align:center;min-width:150px}
+.label b{display:block;font-family:Cinzel,serif;letter-spacing:.12em;font-size:.82rem}
+.label i{font-size:.74rem;color:#6a4f30}
+.knob{position:absolute;bottom:9px;left:50%;width:34px;height:9px;margin-left:-17px;border-radius:6px;background:linear-gradient(var(--brass),var(--brass2));box-shadow:0 2px 3px rgba(0,0,0,.6)}
+.drawer .lv{position:absolute;top:6px;left:8px;font-family:'Special Elite',monospace;font-size:.68rem;color:var(--brass)}
+.drawer .tick{position:absolute;top:5px;right:9px;color:#9fd47a;font-size:1.1rem;display:none}
+.drawer.in .tick{display:block}
+.drawer.off{opacity:.45;cursor:default}
+.drawer.off:hover .front{transform:none}
+/* open drawer card */
+.pull{margin-bottom:14px;background:var(--paper);color:var(--ink);padding:18px 22px;border:3px solid var(--brass2);box-shadow:inset 0 0 30px rgba(120,90,50,.25);animation:slide .35s ease-out}
+@keyframes slide{from{transform:translateY(-18px);opacity:0}to{transform:none;opacity:1}}
+.pull h3{margin:0;font-family:Cinzel,serif;letter-spacing:.1em}
+.pull h3 small{font-family:'IM Fell English';font-style:italic;letter-spacing:0;color:#7a5a38;font-size:.9rem;margin-left:8px}
+.pull p{margin:8px 0}.pull .dose{font-family:'Special Elite',monospace;font-size:.82rem;background:rgba(120,90,50,.15);padding:6px 9px}
+.pull .flag{border-left:4px solid var(--red);padding:5px 10px;background:rgba(168,69,42,.12);font-size:.92rem}
+.btn{font-family:Cinzel,serif;font-weight:700;letter-spacing:.12em;font-size:.82rem;padding:10px 18px;border:2px solid #1c1008;background:linear-gradient(var(--brass),#a98a3e);color:#2a1d12;cursor:pointer;box-shadow:0 3px 0 #5a4418}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 #5a4418}
+.btn.alt{background:var(--paper)}
+/* scale */
+.scale{background:linear-gradient(#e9d8b3,#d8c395);color:var(--ink);border:3px solid var(--brass2);padding:20px;box-shadow:0 12px 30px rgba(0,0,0,.5);position:sticky;top:12px}
+.scale h3{font-family:Cinzel,serif;letter-spacing:.16em;margin:0 0 2px;font-size:1rem}
+.scale .sub{font-style:italic;color:#6a4f30;font-size:.85rem;margin:0 0 10px}
+.pans{height:92px;position:relative;margin:4px 0 6px}
+.beam{position:absolute;left:12%;right:12%;top:18px;height:5px;background:linear-gradient(var(--brass),var(--brass2));border-radius:3px;transform:rotate(var(--tilt,0deg));transition:transform .5s}
+.post{position:absolute;left:50%;top:14px;width:6px;height:78px;background:var(--brass2);margin-left:-3px}
+.jars{display:flex;gap:6px;justify-content:center;align-items:flex-end;position:absolute;left:0;right:0;bottom:0;height:56px}
+.jar{width:34px;border:2px solid #5a4418;border-radius:4px 4px 8px 8px;background:var(--c);transition:height .4s;position:relative}
+.jar:after{content:"";position:absolute;top:-6px;left:4px;right:4px;height:6px;background:#8a6a2a;border-radius:2px}
+.recipe{list-style:none;margin:8px 0;padding:0;font-family:'Special Elite',monospace;font-size:.84rem}
+.recipe li{display:flex;justify-content:space-between;border-bottom:1px dotted #8a6a2a;padding:4px 0}
+.empty{font-style:italic;color:#7a5a38}
+.days{display:flex;gap:6px;margin:10px 0}.days button{flex:1;font-family:Cinzel,serif;font-weight:700;padding:8px 0;border:2px solid var(--ink);background:transparent;cursor:pointer;color:var(--ink)}
+.days .on{background:var(--ink);color:var(--paper)}
+.big{display:flex;justify-content:space-between;align-items:baseline;margin-top:6px}
+.big span{font-family:Cinzel,serif;font-size:1.7rem}.big small{color:#6a4f30}
+.when{margin:12px 0;padding:10px 12px;background:rgba(77,107,58,.18);border:2px dashed var(--green);font-size:.94rem}
+.when b{font-family:Cinzel,serif}
+.bar{height:10px;background:rgba(0,0,0,.15);margin-top:8px;position:relative}.bar i{position:absolute;top:0;bottom:0;background:var(--green);transition:all .4s}.bar u{position:absolute;top:0;bottom:0;background:#8fb36e;transition:all .4s}
+.weeks{display:flex;justify-content:space-between;font-size:.68rem;font-family:'Special Elite',monospace;color:#6a4f30}
+.caution{font-size:.82rem;font-style:italic;color:#6a3a22;margin:10px 0 12px}
+.scale .btn{width:100%}
+footer{text-align:center;color:#a8946a;font-size:.8rem;padding:24px 20px 40px;font-style:italic}
+</style></head><body>
+<header><div class="brand">IMMORTAL HERBAL<small>an apothecary, built for you</small></div><div class="brand" style="font-size:.8rem">BUILD YOUR HERB CABINET</div></header>
+
+<div class="pad"><div class="sheet">
+  <label>The patient's complaint</label>
+  <input value="I can't fall asleep at night" aria-label="Search">
+  <div class="row"><span>Female</span><span>35-49</span><span>No medicines</span><span>Not pregnant</span></div>
+</div></div>
+
+<h2 class="wt">&#10022; THE WALL OF DRAWERS &#10022;</h2>
+<p class="lede">Pull a drawer to read what is in it. Tap "Add to the scale" and we weigh your blend for the days you choose. <em>(Sample data.)</em></p>
+
+<div class="cabinet">
+  <div><div id="pullslot"></div><div class="wall" id="wall"></div></div>
+  <aside class="scale">
+    <h3>YOUR BLEND</h3><p class="sub">Weighed and packed by hand for your issue and your days</p>
+    <div class="pans"><div class="post"></div><div class="beam" id="beam"></div><div class="jars" id="jars"></div></div>
+    <ul class="recipe" id="recipe"></ul>
+    <div class="days" id="days"><button data-d="7">7</button><button data-d="14" class="on">14</button><button data-d="30">30</button><button data-d="60">60</button></div>
+    <div class="big"><span id="grams">84 g</span><small id="pouch">one pouch, 14 nights</small></div>
+    <div class="big"><span id="price">$12</span><small>sample price</small></div>
+    <div class="when" id="when"></div>
+    <p class="caution">Natural support alongside your care. Check with your pharmacist if you take medication. Not for use in pregnancy.</p>
+    <button class="btn">RESERVE MY BLEND</button>
+  </aside>
+</div>
+<footer>Educational information, not medical advice. Talk to your doctor or pharmacist, especially if you take medicine.</footer>
+
+<script>
+const HERBS=[
+ {id:'val',name:'VALERIAN',latin:'Valeriana officinalis',lvl:1,g:1.5,wk:[2,4],c:'#8a6a4a',dose:'0.3-3 g in a cup of hot water at bedtime',src:'EMA monograph, sleep disorders',note:'Trials suggest it may shorten the time to fall asleep. Effects build over 2-4 weeks.',flag:'Can cause drowsiness. Avoid with alcohol or sedatives.'},
+ {id:'lem',name:'LEMON BALM',latin:'Melissa officinalis',lvl:1,g:2,wk:[1,2],c:'#9db35a',dose:'1.5-4.5 g as tea, up to 3 times a day',src:'EMA monograph, mild stress and sleep',note:'Used for calm and mild sleep trouble. Small trials, gentle profile.',flag:'Ask your clinician first if you take a thyroid medicine.'},
+ {id:'pas',name:'PASSIONFLOWER',latin:'Passiflora incarnata',lvl:2,g:1,wk:[1,2],c:'#9a6fa8',dose:'0.5-2 g as tea, 1-4 times a day',src:'EMA monograph',note:'Widely used for restlessness. Evidence is mixed but consistent in direction.',flag:''},
+ {id:'cha',name:'CHAMOMILE',latin:'Matricaria chamomilla',lvl:2,g:1.5,wk:[1,2],c:'#e0c25a',dose:'2-8 g as tea, 3-4 times a day',src:'EMA monograph',note:'A gentle evening classic for calm and digestion.',flag:'Avoid if allergic to daisy-family plants.'},
+ {id:'hop',name:'HOPS',latin:'Humulus lupulus',lvl:3,g:0,wk:[0,0],c:'#b8c27a',dose:'',src:'',note:'Traditional bedtime herb, often paired with valerian. Not in your blend: no verified dried-herb dose yet.',flag:'',off:true},
+ {id:'ash',name:'MORE HERBS',latin:'coming as our data grows',lvl:0,g:0,wk:[0,0],c:'#777',off:true}
+];
+const sel=new Set(['val','lem','pas','cha']);let open=null,days=14;
+const wall=document.getElementById('wall');
+function render(){
+  wall.innerHTML='';document.getElementById('pullslot').innerHTML='';
+  HERBS.forEach(h=>{
+    const d=document.createElement('div');d.className='drawer'+(sel.has(h.id)?' in':'')+(h.off?' off':'');
+    d.innerHTML=`<div class="front"><span class="lv">${h.lvl?'LEVEL '+h.lvl:''}</span><span class="tick">&#10003;</span><div class="label"><b>${h.name}</b><i>${h.latin}</i></div><div class="knob"></div></div>`;
+    d.onclick=()=>{ if(h.off&&h.id!=='hop')return; open=open===h.id?null:h.id; render(); };
+    wall.appendChild(d);
+    if(open===h.id){
+      const p=document.createElement('div');p.className='pull';
+      p.innerHTML=`<h3>${h.name}<small>${h.latin}</small></h3><p>${h.note}</p>${h.dose?`<p class="dose">DOSE: ${h.dose}<br>SOURCE: ${h.src}</p>`:''}${h.flag?`<p class="flag">${h.flag}</p>`:''}${h.off?'<button class="btn alt" disabled>NOT CURRENTLY CARRIED</button>':`<button class="btn" id="tg">${sel.has(h.id)?'REMOVE FROM THE SCALE':'ADD TO THE SCALE'}</button>`}`;
+      document.getElementById('pullslot').appendChild(p);
+      const tg=p.querySelector('#tg');if(tg)tg.onclick=e=>{e.stopPropagation();sel.has(h.id)?sel.delete(h.id):sel.add(h.id);render();};
+    }
+  });
+  scale();
+}
+function scale(){
+  const L=HERBS.filter(h=>sel.has(h.id));const tot=L.reduce((a,h)=>a+h.g,0);
+  document.getElementById('recipe').innerHTML=L.length?L.map(h=>`<li><span>${h.name[0]+h.name.slice(1).toLowerCase()}</span><b>${h.g} g</b></li>`).join('')+`<li><span>Per cup</span><b>${tot} g</b></li>`:'<li class="empty">Pull a drawer and add a herb.</li>';
+  document.getElementById('jars').innerHTML=L.map(h=>`<div class="jar" style="--c:${h.c};height:${14+h.g*18}px"></div>`).join('');
+  document.getElementById('beam').style.setProperty('--tilt',(L.length?Math.min(8,tot):0)*-.6+'deg');
+  document.getElementById('grams').textContent=Math.round(tot*days)+' g';
+  document.getElementById('pouch').textContent=`one pouch, ${days} nights`;
+  document.getElementById('price').textContent='$'+(L.length?Math.round(4+tot*days*.095):0);
+  const w=document.getElementById('when');
+  if(!L.length){w.innerHTML='Add a herb to see when to expect results.';return}
+  const a=Math.max(...L.map(h=>h.wk[0])),b=Math.max(...L.map(h=>h.wk[1]));
+  w.innerHTML=`<b>WHEN TO EXPECT RESULTS</b><br>Some people notice a change in <b>${a}-${b} weeks</b>. If nothing changes after ${b} weeks, talk to your clinician.<div class="bar"><u style="left:${(a-1)/4*100}%;width:${(b-a+1)/4*100}%"></u></div><div class="weeks"><span>wk1</span><span>wk2</span><span>wk3</span><span>wk4</span></div>`;
+}
+document.querySelectorAll('#days button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#days button').forEach(x=>x.classList.remove('on'));b.classList.add('on');days=+b.dataset.d;scale();});
+open='val';render();
+</script></body></html>
