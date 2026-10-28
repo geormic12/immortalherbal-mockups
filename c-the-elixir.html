@@ -13,6 +13,7 @@ header{display:flex;justify-content:center;padding:26px;font-family:Cormorant,se
 h1{font-family:Cormorant,serif;font-weight:400;font-size:clamp(2.6rem,7vw,5rem);line-height:1.05;margin:8px 0 26px;background:linear-gradient(#fff,var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
 .ask{max-width:640px;margin:0 auto;position:relative}
 .ask input{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(229,199,122,.5);border-radius:60px;padding:18px 160px 18px 28px;color:var(--txt);font:300 1.15rem Manrope;outline:0;box-shadow:0 0 40px rgba(229,199,122,.12)}
+.ask input::placeholder{color:rgba(233,239,233,.32);font-style:italic}
 .ask button{position:absolute;right:6px;top:6px;bottom:6px;border:0;border-radius:50px;padding:0 24px;background:linear-gradient(var(--gold),var(--gold2));color:#1a1408;font:600 .85rem Manrope;letter-spacing:.08em;cursor:pointer}
 .hint{font-size:.8rem;color:var(--mist);margin:10px 0 0}
 .who{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}
@@ -106,7 +107,7 @@ footer{text-align:center;color:#6f8578;font-size:.76rem;padding:30px 20px 50px}
 <section class="hero">
   <p class="k">Build your herb cabinet</p>
   <h1>Find herbal solutions</h1>
-  <div class="ask"><input id="q" value="I can't fall asleep at night" aria-label="Ailment or goal"><button>FIND MY HERBS</button></div>
+  <div class="ask"><input id="q" placeholder="I can't fall asleep at night" autocomplete="off" aria-label="Ailment or goal"><button>FIND MY HERBS</button></div>
   <p class="hint">Type an ailment or a goal</p>
   <div class="who">
     <label>Sex <select id="sex"><option>Female</option><option>Male</option></select></label>
@@ -199,7 +200,7 @@ function donut(L,tot){
 function label(){
   const L=HERBS.filter(h=>sel.has(h.id)),tot=L.reduce((a,h)=>a+h.g,0),weeks=Math.ceil(days/7);
   const a=L.length?Math.max(...L.map(h=>h.wk[0])):0,b=L.length?Math.max(...L.map(h=>h.wk[1])):0;
-  $('lfor').innerHTML=`For: <b>${$('q').value.trim()||'your goal'}</b>`;
+  $('lfor').innerHTML=`For: <b>${$('q').value.trim()||$('q').placeholder}</b>`;
   $('lsup').textContent=`${$('sex').value} · ${$('age').value} · ${days} nights`;
   $('ling').innerHTML=L.length?L.map(h=>`<li><i style="--c:${h.c}"></i>${h.n}<span class="d"></span><b>${h.g} g</b></li>`).join(''):'<li style="color:#7c4a2a">Add herbs from the chart above.</li>';
   $('lhow').innerHTML=L.length?`<b>Directions:</b> steep ${tot} g (about ${Math.max(1,Math.round(tot/3))} heaped teaspoons) in a cup of hot water for 10 minutes. Drink 1 cup, 45 minutes before bed.`:'';
