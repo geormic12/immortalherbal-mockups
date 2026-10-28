@@ -47,6 +47,30 @@ h1{font-family:Cormorant,serif;font-weight:400;font-size:clamp(2.6rem,7vw,5rem);
 .panel .flag{font-size:.88rem;color:var(--rose);border-left:2px solid var(--rose);padding-left:12px}
 .tog{margin-top:18px;border:1px solid var(--gold);background:transparent;color:var(--gold);border-radius:40px;padding:11px 24px;font:600 .8rem Manrope;letter-spacing:.12em;cursor:pointer;text-transform:uppercase}
 .tog.on{background:var(--gold);color:#1a1408}.tog:disabled{opacity:.35;cursor:default}
+.sbar{position:sticky;top:0;z-index:30;max-width:1040px;margin:26px auto 0;display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;
+ background:rgba(10,24,18,.88);backdrop-filter:blur(12px);border:1px solid rgba(229,199,122,.45);border-radius:22px;padding:10px 12px 10px 18px;box-shadow:0 10px 40px rgba(0,0,0,.45)}
+.bchips{display:flex;gap:6px;flex-wrap:wrap;align-items:center;flex:1;min-width:200px}
+.bchips .lab{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mist);margin-right:4px}
+.chip{border:0;border-radius:30px;padding:5px 12px;font:600 .78rem Manrope;color:#10241c;background:var(--c);cursor:pointer}
+.chip:after{content:" \00d7";opacity:.6}
+.bmeta{display:flex;align-items:center;gap:14px}
+.bmeta .bn{font-size:.78rem;color:var(--mist)}.bmeta .bp{font:400 1.6rem Cormorant,serif;color:#fff}
+.bcta{border:0;border-radius:40px;padding:12px 22px;background:linear-gradient(var(--gold),var(--gold2));color:#1a1408;font:600 .78rem Manrope;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+.src{margin-top:18px;border-top:1px solid rgba(255,255,255,.1);padding-top:14px}
+.src h5{margin:0 0 8px;font:600 .68rem Manrope;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.src a{display:flex;justify-content:space-between;gap:10px;color:var(--txt);text-decoration:none;font-size:.9rem;padding:6px 0;border-bottom:1px dotted rgba(255,255,255,.12)}
+.src a span{color:var(--mist);font-size:.74rem;white-space:nowrap}.src a:hover{color:var(--gold)}
+.src small{display:block;margin-top:8px;color:#7f9588;font-size:.72rem;line-height:1.4}
+.more{margin-left:10px;background:transparent;border:0;color:var(--gold);font:400 .85rem Manrope;text-decoration:underline;cursor:pointer;letter-spacing:.04em}
+#modal{position:fixed;inset:0;background:rgba(2,8,6,.78);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:60;padding:20px}
+#modal.open{display:flex}
+.herbpage{background:#0d1d16;border:1px solid rgba(229,199,122,.45);border-radius:24px;max-width:640px;width:100%;max-height:90vh;overflow:auto;padding:30px 32px;position:relative}
+.herbpage .x{position:absolute;right:16px;top:12px;background:none;border:0;color:var(--mist);font-size:1.6rem;cursor:pointer}
+.herbpage h2{font-family:Cormorant,serif;font-weight:400;font-size:2.6rem;line-height:1;margin:0}
+.herbpage h2 i{display:block;font-size:1.05rem;color:var(--mist);margin-top:4px}
+.uses{margin:18px 0 0}.uses h5{margin:14px 0 6px;font:600 .68rem Manrope;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.uses span{display:inline-block;border:1px solid rgba(159,181,166,.4);border-radius:30px;padding:3px 12px;margin:0 6px 6px 0;font-size:.85rem}
+.herbpage .note{font-size:.74rem;color:#7f9588;margin-top:16px}
 /* label */
 .build{display:grid;grid-template-columns:1.25fr 1fr;gap:34px;align-items:start}
 @media(max-width:900px){.build{grid-template-columns:1fr}}
@@ -100,7 +124,7 @@ h1{font-family:Cormorant,serif;font-weight:400;font-size:clamp(2.6rem,7vw,5rem);
 .tl{display:flex;justify-content:space-between;font-size:.72rem;color:var(--mist);margin-top:6px;letter-spacing:.1em}
 .warn{max-width:760px;margin:30px auto 0;text-align:center;font-size:.84rem;color:var(--mist);padding:0 20px}
 footer{text-align:center;color:#6f8578;font-size:.76rem;padding:30px 20px 50px}
-@media print{body{background:#fff}body:before,header,.hero,.chartsec,.moonsec,.side,.warn,footer{display:none!important}.sec{margin:0;padding:0;max-width:none}.build{display:block}.label{box-shadow:none}}
+@media print{body{background:#fff}body:before,.sbar,#modal,header,.hero,.chartsec,.moonsec,.side,.warn,footer{display:none!important}.sec{margin:0;padding:0;max-width:none}.build{display:block}.label{box-shadow:none}}
 </style></head><body>
 <header>Immortal Herbal</header>
 
@@ -115,9 +139,14 @@ footer{text-align:center;color:#6f8578;font-size:.76rem;padding:30px 20px 50px}
   </div>
 </section>
 
+<div class="sbar" id="sbar" role="region" aria-label="Your blend">
+  <div class="bchips" id="bchips"></div>
+  <div class="bmeta"><span class="bn" id="bnights"></span><span class="bp" id="bprice"></span><button class="bcta" onclick="document.getElementById('label').scrollIntoView({behavior:'smooth'})">Order my blend</button></div>
+</div>
+
 <section class="sec chartsec">
   <h3>What the evidence says</h3>
-  <p class="sub">Tap an herb to read about it and add it to your blend. Sample data.</p>
+  <p class="sub">We started your blend for you. Tap any herb to read the research, then add it or take it out. Sample data.</p>
   <div class="split">
     <div>
       <div class="chart" id="chart"></div>
@@ -127,7 +156,7 @@ footer{text-align:center;color:#6f8578;font-size:.76rem;padding:30px 20px 50px}
   </div>
 </section>
 
-<section class="sec">
+<section class="sec" id="label">
   <h3>Your label</h3>
   <p class="sub">Blended for you and packed by hand. Tick a circle each night you take it.</p>
   <div class="build">
@@ -165,15 +194,16 @@ footer{text-align:center;color:#6f8578;font-size:.76rem;padding:30px 20px 50px}
   <div class="tl"><span>night 1</span><span>week 1</span><span>week 2</span><span>week 3</span><span>week 4</span></div>
 </section>
 <p class="warn">Natural support alongside your care. Check with your pharmacist if you take medication.</p>
+<div id="modal"><div class="herbpage" id="hp"></div></div>
 <footer>Educational information, not medical advice. Talk to your doctor or pharmacist, especially if you take medicine.</footer>
 
 <script>
 const HERBS=[
- {id:'val',n:'Valerian',l:'Valeriana officinalis',lvl:1,g:1.5,wk:[2,4],c:'#d4b48c',dose:'0.3-3 g in a cup of hot water at bedtime',src:'EMA monograph, sleep disorders',note:'Trials suggest it may shorten the time to fall asleep. Effects build over 2-4 weeks.',flag:'Can cause drowsiness. Avoid with alcohol or sedatives.'},
- {id:'lem',n:'Lemon balm',l:'Melissa officinalis',lvl:1,g:2,wk:[1,2],c:'#b7d46a',dose:'1.5-4.5 g as tea, up to 3 times a day',src:'EMA monograph, mild stress and sleep',note:'Used for calm and mild sleep trouble. Small trials, gentle profile.',flag:'Ask your clinician first if you take a thyroid medicine.'},
- {id:'pas',n:'Passionflower',l:'Passiflora incarnata',lvl:2,g:1,wk:[1,2],c:'#c58de0',dose:'0.5-2 g as tea, 1-4 times a day',src:'EMA monograph',note:'Widely used for restlessness. Evidence is mixed but consistent in direction.',flag:''},
- {id:'cha',n:'Chamomile',l:'Matricaria chamomilla',lvl:2,g:1.5,wk:[1,2],c:'#f2dc7a',dose:'2-8 g as tea, 3-4 times a day',src:'EMA monograph',note:'A gentle evening classic for calm and digestion.',flag:'Avoid if allergic to daisy-family plants.'},
- {id:'hop',n:'Hops',l:'Humulus lupulus',lvl:3,g:0,wk:[0,0],c:'#9fb5a6',dose:'',src:'',note:'Traditional bedtime herb, often paired with valerian. Not in your blend: no verified dried-herb dose yet.',flag:'',off:true}
+ {id:'val',ema:'valerianae-radix',uses:[['trouble falling asleep'],['nervous tension','restlessness'],['headache','palpitations']],n:'Valerian',l:'Valeriana officinalis',lvl:1,g:1.5,wk:[2,4],c:'#d4b48c',dose:'0.3-3 g in a cup of hot water at bedtime',src:'EMA monograph, sleep disorders',note:'Trials suggest it may shorten the time to fall asleep. Effects build over 2-4 weeks.',flag:'Can cause drowsiness. Avoid with alcohol or sedatives.'},
+ {id:'lem',ema:'melissae-folium',uses:[['mild stress','sleep trouble'],['digestive upset','cold sores (cream)'],['melancholy','toothache']],n:'Lemon balm',l:'Melissa officinalis',lvl:1,g:2,wk:[1,2],c:'#b7d46a',dose:'1.5-4.5 g as tea, up to 3 times a day',src:'EMA monograph, mild stress and sleep',note:'Used for calm and mild sleep trouble. Small trials, gentle profile.',flag:'Ask your clinician first if you take a thyroid medicine.'},
+ {id:'pas',ema:'passiflorae-herba',uses:[[],['restlessness','nervous tension'],['menopause symptoms','pain']],n:'Passionflower',l:'Passiflora incarnata',lvl:2,g:1,wk:[1,2],c:'#c58de0',dose:'0.5-2 g as tea, 1-4 times a day',src:'EMA monograph',note:'Widely used for restlessness. Evidence is mixed but consistent in direction.',flag:''},
+ {id:'cha',ema:'matricariae-flos',uses:[[],['upset stomach','mild anxiety','sleep'],['skin irritation','teething']],n:'Chamomile',l:'Matricaria chamomilla',lvl:2,g:1.5,wk:[1,2],c:'#f2dc7a',dose:'2-8 g as tea, 3-4 times a day',src:'EMA monograph',note:'A gentle evening classic for calm and digestion.',flag:'Avoid if allergic to daisy-family plants.'},
+ {id:'hop',ema:'lupuli-flos',uses:[[],['restlessness'],['appetite loss','menopause symptoms']],n:'Hops',l:'Humulus lupulus',lvl:3,g:0,wk:[0,0],c:'#9fb5a6',dose:'',src:'',note:'Traditional bedtime herb, often paired with valerian. Not in your blend: no verified dried-herb dose yet.',flag:'',off:true}
 ];
 const LV={1:['Level 1','Studied in people',100],2:['Level 2','General agreement',66],3:['Level 3','Folk use',34]};
 const sel=new Set(['val','lem','pas','cha']);let cur='val',days=14;const $=id=>document.getElementById(id);
@@ -185,9 +215,33 @@ function chart(){
   $('chart').innerHTML=[1,2,3].map(k=>`<div class="crow"><div class="clab"><b>${LV[k][0]}</b><span>${LV[k][1]}</span></div><div class="track"><div class="bar" style="width:${LV[k][2]}%">${HERBS.filter(h=>h.lvl===k).map(h=>`<button class="seg ${h.off?'off':''} ${sel.has(h.id)?'in':''} ${cur===h.id?'act':''}" style="--c:${h.c}" data-id="${h.id}">${h.n}</button>`).join('')}</div></div></div>`).join('');
   document.querySelectorAll('.seg').forEach(b=>b.onclick=()=>{cur=b.dataset.id;all()});
 }
+const pm=q=>'https://pubmed.ncbi.nlm.nih.gov/?term='+encodeURIComponent(q);
+function links(h){
+  const L=[],lat='"'+h.l+'"';
+  if(h.lvl===1){L.push(['Clinical trials',pm(lat+' AND randomized controlled trial[pt]'),'PubMed']);L.push(['Systematic reviews and meta-analyses',pm(lat+' AND (systematic review[pt] OR meta-analysis[pt])'),'PubMed'])}
+  if(h.lvl===2){L.push(['Reviews of the research',pm(lat+' AND review[pt]'),'PubMed'])}
+  if(h.lvl===3){L.push(['Folk and traditional use',pm(lat+' AND (ethnobotany OR "traditional medicine" OR "folk medicine")'),'PubMed'])}
+  if(h.ema)L.push([h.lvl===1?'Official herbal monograph and dosing':'Traditional-use monograph','https://www.ema.europa.eu/en/medicines/herbal/'+h.ema,'EMA']);
+  L.push(['Plant background','https://en.wikipedia.org/wiki/'+h.l.replace(' ','_'),'Wikipedia']);
+  return L;
+}
+const SRCHEAD={1:'The studies (Level 1)',2:'General agreement (Level 2)',3:'Folk and traditional use (Level 3)'};
+function sources(h){return `<div class="src"><h5>${SRCHEAD[h.lvl]}</h5>${links(h).map(l=>`<a href="${l[1]}" target="_blank" rel="noopener">${l[0]}<span>${l[2]} \u2197</span></a>`).join('')}<small>These open live searches of PubMed and EMA's monograph page for this herb. Specific cited studies will be added herb by herb.</small></div>`}
+function openHerb(id){
+  const h=HERBS.find(x=>x.id===id);
+  $('hp').innerHTML=`<button class="x" onclick="closeHerb()" aria-label="Close">&times;</button><div style="font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)">${LV[h.lvl][0]} &middot; ${LV[h.lvl][1]}</div><h2>${h.n}<i>${h.l}</i></h2><p>${h.note}</p>
+  <div class="uses">${[1,2,3].map(k=>h.uses[k-1].length?`<h5>${LV[k][0]} uses &middot; ${LV[k][1].toLowerCase()}</h5>${h.uses[k-1].map(u=>`<span>${u}</span>`).join('')}`:'').join('')}</div>
+  ${h.dose?`<p style="font-size:.9rem;color:var(--mist);border-left:2px solid var(--gold2);padding-left:12px;margin-top:16px">${h.dose}<br><small style="color:#7f9588">${h.src}</small></p>`:''}${h.flag?`<p style="font-size:.9rem;color:var(--rose);border-left:2px solid var(--rose);padding-left:12px">${h.flag}</p>`:''}
+  ${sources(h)}<p class="note">Sample uses shown here. Each herb's full uses list comes from our per-herb research.</p>
+  <button class="tog ${sel.has(h.id)?'on':''}" ${h.off?'disabled':''} onclick="toggle('${h.id}');openHerb('${h.id}')">${h.off?'Not currently carried':sel.has(h.id)?'\u2713 In your blend':'Add to your blend'}</button>`;
+  $('modal').classList.add('open');
+}
+function closeHerb(){$('modal').classList.remove('open')}
+function toggle(id){sel.has(id)?sel.delete(id):sel.add(id);all()}
 function panel(){
   const h=HERBS.find(x=>x.id===cur);
-  $('panel').innerHTML=`<div class="lv">${LV[h.lvl][0]} &middot; ${LV[h.lvl][1]}</div><h2>${h.n}<i>${h.l}</i></h2><p>${h.note}</p>${h.dose?`<p class="dose">${h.dose}<br><small style="color:#7f9588">${h.src}</small></p>`:''}${h.flag?`<p class="flag">${h.flag}</p>`:''}<button class="tog ${sel.has(h.id)?'on':''}" ${h.off?'disabled':''} id="tg">${h.off?'Not currently carried':sel.has(h.id)?'✓ In your blend':'Add to your blend'}</button>`;
+  $('panel').innerHTML=`<div class="lv">${LV[h.lvl][0]} &middot; ${LV[h.lvl][1]}</div><h2>${h.n}<i>${h.l}</i></h2><p>${h.note}</p>${h.dose?`<p class="dose">${h.dose}<br><small style="color:#7f9588">${h.src}</small></p>`:''}${h.flag?`<p class="flag">${h.flag}</p>`:''}<button class="tog ${sel.has(h.id)?'on':''}" ${h.off?'disabled':''} id="tg">${h.off?'Not currently carried':sel.has(h.id)?'✓ In your blend':'Add to your blend'}</button><button class="more" id="lm">Learn more about ${h.n.toLowerCase()}</button>${sources(h)}`;
+  $('lm').onclick=()=>openHerb(h.id);
   $('tg').onclick=()=>{sel.has(h.id)?sel.delete(h.id):sel.add(h.id);all()};
 }
 function donut(L,tot){
@@ -219,8 +273,16 @@ function label(){
   $('mp').textContent=L.length?`Some people notice a change from week ${a}. Full effect can take up to ${b} weeks.`:'Add a herb to see the timeline.';
   $('moons').innerHTML=Array.from({length:28},(_,i)=>{const w=i/7+.14;return `<div class="${!L.length?'':w>=b?'full':w>=a-1?'early':''}"></div>`}).join('');
 }
-function all(){chart();panel();label()}
-document.querySelectorAll('#nights button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#nights button').forEach(x=>x.classList.remove('on'));b.classList.add('on');days=+b.dataset.d;label()});
+function bar(){
+  const L=HERBS.filter(h=>sel.has(h.id)),tot=L.reduce((a,h)=>a+h.g,0);
+  $('bchips').innerHTML='<span class="lab">Your blend</span>'+(L.length?L.map(h=>`<button class="chip" style="--c:${h.c}" data-id="${h.id}" title="Take out ${h.n}">${h.n}</button>`).join(''):'<span style="color:var(--mist);font-size:.85rem">Add herbs below</span>');
+  document.querySelectorAll('.chip').forEach(c=>c.onclick=()=>toggle(c.dataset.id));
+  $('bnights').textContent=days+' nights';$('bprice').textContent='$'+(L.length?Math.round(4+tot*days*.095):0);
+}
+function all(){chart();panel();label();bar()}
+document.querySelectorAll('#nights button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#nights button').forEach(x=>x.classList.remove('on'));b.classList.add('on');days=+b.dataset.d;label();bar()});
 ['q','sex','age'].forEach(id=>$(id).addEventListener('input',label));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeHerb()});
+$('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeHerb()});
 all();
 </script></body></html>
