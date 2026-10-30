@@ -83,6 +83,7 @@ h2{font-family:Cormorant,serif;font-weight:400;font-size:1.9rem;margin:56px 0 4p
 .og{color:#4a5a2c;font-weight:700;font-size:.9rem;margin-left:1px}
 .sl{font-weight:700;color:var(--gold)}
 .pick{min-height:44px;border-radius:10px;border:1px dashed #e5c77a99;background:#0e211a;color:var(--gold);font:600 .9rem Manrope;padding:0 12px;cursor:pointer}
+.what{font-size:.92rem;margin:0}.what b{color:var(--gold)}
 .legend{font-size:.75rem;color:var(--mist);padding:10px 16px;border-top:1px solid #e5c77a22}
 @media(max-width:620px){.row{grid-template-columns:1fr}}
 /* herb card */
@@ -175,25 +176,25 @@ footer{text-align:center;color:var(--mist);font-size:.8rem;padding:30px}
 // sample herbs (names, images, brew from herb-db; the rest illustrative)
 const H={
  chamomile:{name:'Chamomile',latin:'Matricaria chamomilla',part:'flower',img:'img/matricaria-chamomilla.jpg',level:1,tF:195,min:7,g:4,preg:false,org:true,
-  grows:'Wild and farmed across Europe, western Asia and Egypt, in sunny fields with poor, sandy soil.',use:'The flowers: restlessness and trouble sleeping, upset stomach and gas, and a mild soothing wash for the skin.',dose:'2-3 g per cup, up to 3 cups a day',origin:'Egypt / Albania / Bulgaria',
+  grows:'Grows wild and farmed across Europe, western Asia and Egypt, in sunny fields with poor, sandy soil.',use:'restlessness and trouble sleeping, upset stomach and gas, and a mild soothing wash for the skin (the flowers).',dose:'2-3 g per cup, up to 3 cups a day',origin:'Egypt / Albania / Bulgaria',
   risk:'Low interaction risk. Ragweed-family allergy possible.',src:[['Randomized trial on sleep quality, J Adv Nurs',1],['Systematic review of chamomile, Mol Med Rep',1],['EMA herbal monograph',2],['NCCIH fact sheet',2]]},
  lemonbalm:{name:'Lemon Balm',latin:'Melissa officinalis',part:'leaf',img:'img/melissa-officinalis.jpg',level:2,tF:195,min:7,g:3,preg:false,org:true,
-  grows:'Sunny gardens and hedgerows from southern Europe to central Asia; it spreads easily and is farmed in Albania, Egypt and Poland.',use:'The leaf: nervous tension and trouble sleeping, settling the stomach, and cold sores on the skin.',dose:'1.5-4.5 g per cup, up to 3 cups a day',origin:'Albania / Egypt / Poland',
+  grows:'Grows in sunny gardens and hedgerows from southern Europe to central Asia, and is farmed in Albania, Egypt and Poland.',use:'nervous tension and trouble sleeping, settling the stomach, and cold sores on the skin (the leaf).',dose:'1.5-4.5 g per cup, up to 3 cups a day',origin:'Albania / Egypt / Poland',
   risk:'Low interaction risk. May add to sedatives.',src:[['Human trial, Nutrients',1],['EMA herbal monograph',2],['Reference monograph',2],['Herbal reference page',3]]},
  passion:{name:'Passionflower',latin:'Passiflora incarnata',part:'aerial parts',img:'img/passiflora-incarnata.jpg',level:2,tF:212,min:10,g:2,preg:true,org:true,
-  grows:'A climbing vine, wild across the southeastern United States and farmed in warm regions of India, Peru and the Mediterranean.',use:'The leaf, stem and flower: anxiety, restlessness and trouble sleeping.',dose:'1-2 g per cup, up to 3 cups a day',origin:'Albania / India / Peru',
+  grows:'Grows as a climbing vine, wild across the southeastern United States and farmed in warm regions of India, Peru and the Mediterranean.',use:'anxiety, restlessness and trouble sleeping (the leaf, stem and flower).',dose:'1-2 g per cup, up to 3 cups a day',origin:'Albania / India / Peru',
   risk:'Moderate. May add to sedatives. Avoid if pregnant or nursing.',src:[['Human trial, Phytother Res',1],['EMA herbal monograph',2],['Reference monograph',2],['Herbal reference page',3]]},
  lavender:{name:'Lavender',latin:'Lavandula angustifolia',part:'flower',img:'img/lavandula-angustifolia.jpg',level:3,tF:195,min:5,g:1,preg:false,
-  grows:'Dry, sunny Mediterranean hillsides, especially France, and farmed in rows in Bulgaria and beyond.',use:'The flower: nervous tension and trouble sleeping, digestive upset, and a scent for relaxation.',dose:'1-2 g per cup',origin:'France / Bulgaria / Egypt',
+  grows:'Grows on dry, sunny Mediterranean hillsides, especially France, and is farmed in rows in Bulgaria and beyond.',use:'nervous tension and trouble sleeping, digestive upset, and a scent for relaxation (the flower).',dose:'1-2 g per cup',origin:'France / Bulgaria / Egypt',
   risk:'Low interaction risk.',src:[['Review of lavender studies, Phytomedicine',1],['EMA herbal monograph',2],['Herbal reference page',3],['Folk herbal tradition summary',3]]},
  peppermint:{name:'Peppermint',latin:'Mentha x piperita',part:'leaf',img:'img/melissa-officinalis.jpg',own:true,tF:212,min:5,g:2,preg:false,org:true,
-  grows:'Damp, temperate ground across Europe and North America; farmed widely in the United States, Morocco and India.',use:'The leaf: upset stomach, gas, and a cooling, refreshing tea.',
+  grows:'Grows in damp, temperate ground across Europe and North America, and is farmed in the United States, Morocco and India.',use:'upset stomach, gas, and a cooling, refreshing tea (the leaf).',
   dose:'1-2 g per cup, up to 3 cups a day',origin:'United States / Morocco / India',risk:'Low interaction risk. May worsen reflux.',src:[['Herbal reference page',3]]},
  ginger:{name:'Ginger',latin:'Zingiber officinale',part:'root',img:'img/matricaria-chamomilla.jpg',own:true,tF:212,min:10,g:2,preg:false,org:true,
-  grows:'Warm, humid tropics; the root is farmed in India, China, Nigeria and Peru.',use:'The root: nausea, upset stomach, and a warming tea.',
+  grows:'Grows in the warm, humid tropics, and the root is farmed in India, China, Nigeria and Peru.',use:'nausea, upset stomach, and a warming tea (the root).',
   dose:'1-2 g per cup, up to 3 cups a day',origin:'India / China / Peru',risk:'Low interaction risk. May add to blood thinners.',src:[['Herbal reference page',3]]},
  rose:{name:'Rose Petals',latin:'Rosa damascena',part:'petal',img:'img/lavandula-angustifolia.jpg',own:true,tF:195,min:5,g:1,preg:false,org:false,
-  grows:'Sunny gardens and fields; the petals are farmed in Bulgaria, Turkey and Iran.',use:'The petals: low mood and tension, and a gentle astringent.',
+  grows:'Grows in sunny gardens and fields, and the petals are farmed in Bulgaria, Turkey and Iran.',use:'low mood and tension, and a gentle astringent (the petals).',
   dose:'1-2 g per cup',origin:'Bulgaria / Turkey / Iran',risk:'Low interaction risk.',src:[['Herbal reference page',3]]},
  kava:{name:'Kava',latin:'Piper methysticum',banned:'Not offered: liver safety concerns (FDA advisory).',level:2}
 };
@@ -235,7 +236,8 @@ function draw(){
  $('cards').innerHTML=(inB.size?'':'<p class="note" style="text-align:left">No herbs in your blend. Tap a herb in the matrix above to add it and its card appears here.</p>')+[...ORDER,...OWN].filter(k=>inB.has(k)&&!H[k].banned).map(k=>{const h=H[k];return `<div class="card ${inB.has(k)?'in':''}"><img src="${h.img}" alt="${h.name}"><div class="bd">
   <div><h3>${h.name}</h3><div class="lat">${h.latin} &middot; ${h.part}</div></div>
   <div class="badges">${h.own?'<span class="b">Your pick</span>':`<span class="b l${h.level}">${LV[h.level][0]} &middot; ${LV[h.level][1]}</span>`}${h.preg?'<span class="b w">Avoid if pregnant or nursing</span>':''}</div>
-  <dl class="facts"><dt>Where it grows</dt><dd>${h.grows}</dd><dt>Traditionally used for</dt><dd>${h.use}</dd><dt>Tea dose</dt><dd>${h.dose}</dd><dt>Brew</dt><dd>${h.tF} F, ${h.min} min, covered</dd><dt>Origin</dt><dd>${h.origin}</dd><dt>Risks</dt><dd>${h.risk}</dd></dl>
+  <p class="what"><b>Traditionally used for</b> ${h.use} ${h.grows}</p>
+  <dl class="facts"><dt>Tea dose</dt><dd>${h.dose}</dd><dt>Brew</dt><dd>${h.tF} F, ${h.min} min, covered</dd><dt>Origin</dt><dd>${h.origin}</dd><dt>Risks</dt><dd>${h.risk}</dd></dl>
   ${h.own?'':`<div class="src"><b>Sources</b>${[1,2,3].map(l=>{const L=h.src.filter(x=>x[1]==l);return L.length?`<div><small class="sl l${l}">Level ${l}</small> ${L.map(x=>`<a href="#">${x[0]}</a>`).join(' &middot; ')}</div>`:''}).join('')}</div>`}
   <div class="prov">Dose, origin and risks: first-pass review, not yet source-checked.</div>
   <div class="ft"><button class="tog" onclick="toggle('${k}')">Remove from blend</button></div></div></div>`}).join('');
