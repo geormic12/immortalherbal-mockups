@@ -82,7 +82,8 @@ h2{font-family:Cormorant,serif;font-weight:400;font-size:1.9rem;margin:56px 0 4p
 .btn:disabled{opacity:.4;cursor:not-allowed}
 .og{color:#4a5a2c;font-weight:700;font-size:.9rem;margin-left:1px}
 .sl{font-weight:700;color:var(--gold)}
-.pick{min-height:44px;border-radius:10px;border:1px dashed #e5c77a99;background:#0e211a;color:var(--gold);font:600 .9rem Manrope;padding:0 12px;cursor:pointer}
+.pickbox{position:relative;flex:1 1 220px}.pickres{display:flex;flex-direction:column;gap:2px;margin-top:4px;max-height:236px;overflow-y:auto}.pickres b{color:var(--gold)}.pickres button,.nores{min-height:44px;text-align:left;background:#17342a;color:var(--txt);border:1px solid #e5c77a44;border-radius:8px;padding:0 12px;font:600 .9rem Manrope;display:flex;align-items:center}.nores{color:var(--mist)}
+.pick{width:100%;min-height:44px;border-radius:10px;border:1px dashed #e5c77a99;background:#0e211a;color:var(--gold);font:600 .9rem Manrope;padding:0 12px;cursor:pointer}
 .what{font-size:.92rem;margin:0}.what b{color:var(--gold)}
 .legend{font-size:.75rem;color:var(--mist);padding:10px 16px;border-top:1px solid #e5c77a22}
 @media(max-width:620px){.row{grid-template-columns:1fr}}
@@ -206,8 +207,20 @@ const $=id=>document.getElementById(id);
 function tot(){return [...inB].reduce((s,k)=>s+H[k].g,0)}
 function brew(){let g=0,t=0,m=0;inB.forEach(k=>{g+=H[k].g;t+=H[k].g*H[k].tF;m+=H[k].g*H[k].min});if(!g)return[0,0,0];return[Math.round(t/g/5)*5,Math.round((Math.round(t/g/5)*5-32)*5/9),Math.round(m/g)]}
 function priceOf(){const cost=tot()*nights/28.35*1.4+1.2;return Math.ceil(cost*3/5)*5}
-function addOwn(k){if(k&&!inB.has(k)&&inB.size<6){inB.add(k);draw()}}
-function toggle(k){if(H[k].banned)return;inB.has(k)?inB.delete(k):inB.add(k);if(inB.size>6)inB.delete(k);draw()}
+// demo catalog: the real build searches all ~400 herbs in herb-db; unlisted ones get placeholder details here
+const CAT=['Peppermint','Ginger','Rose Petals','Hibiscus','Nettle','Raspberry Leaf','Spearmint','Fennel','Licorice Root','Cinnamon','Cardamom','Holy Basil','Ashwagandha','Dandelion Root','Red Clover','Elderflower','Hawthorn Berry','Skullcap','Valerian Root','Catnip','Lemongrass','Rooibos','Oat Straw','Marshmallow Root','Calendula','Thyme','Sage','Rosemary','Echinacea','Milk Thistle'];
+const slug=n=>n.toLowerCase().replace(/[^a-z]+/g,'');
+function ensure(k){if(!H[k]){const n=CAT.find(c=>slug(c)==k);H[k]={name:n,latin:'(from herb database)',part:'herb',img:'img/matricaria-chamomilla.jpg',own:true,tF:200,min:7,g:2,preg:false,org:false,grows:'Grows details come from the herb database.',use:'details come from the herb database.',dose:'1-2 g per cup',origin:'(from herb database)',risk:'(from herb database)',src:[]}}}
+function addOwn(k){if(!k)return;ensure(k);if(inB.has(k))return;if(inB.size>=6){toast('Your blend is full (6 herbs). Remove one first.');return}inB.add(k);draw()}
+const keyOf=n=>slug(n)==='passionflower'?'passion':slug(n);
+// autofill: matches names (or any word in a name) that START with the typed letters; "P" lists every P herb, "PE" narrows it
+function pickSearch(q){const box=$('pickres');q=q.trim().toLowerCase();if(!q){box.innerHTML='';return}
+  const names=[...ORDER.filter(k=>!H[k].banned).map(k=>H[k].name),...CAT].filter((n,i,a)=>a.indexOf(n)==i).sort();
+  const avail=names.filter(n=>!inB.has(keyOf(n))),first=avail.filter(n=>n.toLowerCase().startsWith(q));
+  const hits=[...first,...avail.filter(n=>!first.includes(n)&&n.toLowerCase().split(' ').some(w=>w.startsWith(q)))];
+  box.innerHTML=hits.length?hits.map(n=>{const i=n.toLowerCase().indexOf(q);const j=i>=0?i:0;return `<button onclick="pickDo('${n}')"><span>${n.slice(0,j)}<b>${n.slice(j,j+q.length)}</b>${n.slice(j+q.length)}</span></button>`}).join(''):'<div class="nores">No herb found</div>'}
+function pickDo(n){addOwn(keyOf(n))}
+function toggle(k){if(H[k].banned)return;if(inB.has(k))inB.delete(k);else if(inB.size>=6){toast('Your blend is full (6 herbs). Remove one first.');return}else inB.add(k);draw()}
 function ring(){const cols=['#4a5a2c','#8a9a4a','#b8914a','#7a6f4a','#a89bc7'];let a=-Math.PI/2,s='',T=tot(),i=0;
  inB.forEach(k=>{const f=H[k].g/T,b=a+f*2*Math.PI,x1=45+36*Math.cos(a),y1=45+36*Math.sin(a),x2=45+36*Math.cos(b),y2=45+36*Math.sin(b);
   s+=`<path d="M${x1} ${y1}A36 36 0 ${f>.5?1:0} 1 ${x2} ${y2}" fill="none" stroke="${cols[i++%5]}" stroke-width="14"/>`;a=b});
@@ -230,7 +243,7 @@ function draw(){
    return `<div class="seg l${l} ${inB.has(k)?'in':'out'}" onclick="toggle('${k}')"><div>${h.name}${h.preg?'<small>Avoid if pregnant or nursing</small>':''}</div></div>`}).join('')+`</div></div>`).join('')+
   `<div class="row own"><div class="rl"><b>Your own picks</b><span>Not ranked. Your personal taste.</span></div><div class="segs">`+
   OWN.filter(k=>inB.has(k)).map(k=>`<div class="seg in" onclick="toggle('${k}')"><div>${H[k].name}</div></div>`).join('')+
-  `<select class="pick" aria-label="Add your own herb" onchange="addOwn(this.value)"><option value="">+ Add your own herb</option>${OWN.filter(k=>!inB.has(k)).map(k=>`<option value="${k}">${H[k].name}</option>`).join('')}</select></div></div>`+
+  `<div class="pickbox"><input id="pickq" class="pick" type="search" placeholder="Search to add your own herb" aria-label="Search herbs to add" autocomplete="off" oninput="pickSearch(this.value)"><div id="pickres" class="pickres"></div></div></div></div>`+
   `<div class="legend">Tap a herb to add it to or remove it from your blend. Solid outline with a check = in your blend. Dashed = not in your blend. Dotted = not offered.</div>`;
  // cards
  $('cards').innerHTML=(inB.size?'':'<p class="note" style="text-align:left">No herbs in your blend. Tap a herb in the matrix above to add it and its card appears here.</p>')+[...ORDER,...OWN].filter(k=>inB.has(k)&&!H[k].banned).map(k=>{const h=H[k];return `<div class="card ${inB.has(k)?'in':''}"><img src="${h.img}" alt="${h.name}"><div class="bd">
