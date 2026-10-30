@@ -76,6 +76,7 @@ h2{font-family:Cormorant,serif;font-weight:400;font-size:1.9rem;margin:56px 0 4p
 .ing{display:flex;gap:14px;align-items:center}
 .ing ul{list-style:none;margin:0;padding:0;font-size:.85rem;flex:1}.ing li{display:flex;justify-content:space-between;border-bottom:1px dotted #cdbf98;padding:2px 0}
 .ing li small{color:#7a6f4a}
+.ing li em.pg{display:block;font-style:normal;font-size:.68rem;font-weight:600;color:#b4432a}
 .dir{font-size:.85rem;margin:0;padding-left:18px}.dir li{margin:2px 0}
 .preg{background:#f3d9cc;border:1px solid #d9a58f;border-radius:4px;padding:6px 10px;font-size:.8rem;margin-top:10px;display:none}
 .track{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:6px}
@@ -147,6 +148,11 @@ function ring(){const cols=['#4a5a2c','#8a9a4a','#b8914a','#7a6f4a','#a89bc7'];l
  inB.forEach(k=>{const f=H[k].g/T,b=a+f*2*Math.PI,x1=45+36*Math.cos(a),y1=45+36*Math.sin(a),x2=45+36*Math.cos(b),y2=45+36*Math.sin(b);
   s+=`<path d="M${x1} ${y1}A36 36 0 ${f>.5?1:0} 1 ${x2} ${y2}" fill="none" stroke="${cols[i++%5]}" stroke-width="14"/>`;a=b});
  return `<svg viewBox="0 0 90 90" width="96" height="96">${s}<text x="45" y="49" text-anchor="middle" font-family="Cormorant" font-weight="700" font-size="13" fill="#2b2a1f">${T} g</text></svg>`}
+// loose dried herb is about 1.5 g per teaspoon (sample value; the real build uses a density per herb)
+function spoons(g){const tsp=Math.max(.5,Math.round(g/1.5*2)/2);const fr={0:'',.5:'½'};
+  const f=n=>{const w=Math.floor(n),h=n-w;return (w?w:'')+(h?(w?' ':'')+'½':'')};
+  if(tsp>=3){const tb=Math.floor(tsp/3),rest=tsp-tb*3;return f(tb)+' tablespoon'+(tb>1?'s':'')+(rest?' and '+f(rest)+' teaspoon'+(rest>1?'s':''):'')}
+  return f(tsp)+' teaspoon'+(tsp>1?'s':'')}
 function draw(){
  // bar
  $('chips').innerHTML=[...inB].map(k=>`<span class="chip ${H[k].preg?'warn':''}" onclick="toggle('${k}')">${H[k].name}${H[k].level==3?' (traditional use)':''}<i>&times;</i></span>`).join('');
@@ -172,10 +178,10 @@ function draw(){
  const items=[...inB];
  $('label').innerHTML=`<div class="top"><div><div class="id">Immortal Herbal &middot; Herbal tea blend</div><h4>Moonlit Meadow</h4><div class="goal">Your goal: Sleep support</div></div><img src="img/mark.png" alt="Immortal Herbal sun and sprig"></div>
   <div class="meta"><span>${nights}-day supply</span><span>Net wt ${Math.round(T*nights)} g (${oz.toFixed(1)} oz)</span></div>
-  <h5>Ingredients</h5><div class="ing">${items.length?ring():''}<ul>${items.map(k=>`<li><span>${H[k].name} <small>(${H[k].part}${H[k].level==3?', traditional use':''})</small></span><span>${H[k].g} g a day</span></li>`).join('')||'<li>Add a herb to build your blend</li>'}</ul></div>
+  <h5>Ingredients</h5><div class="ing">${items.length?ring():''}<ul>${items.map(k=>`<li><span>${H[k].name} <small>(${H[k].part}${H[k].level==3?', traditional use':''})</small>${H[k].preg?'<em class="pg">Avoid if pregnant or nursing</em>':''}</span><span>${H[k].g} g</span></li>`).join('')||'<li>Add a herb to build your blend</li>'}</ul></div>
   <div class="preg" style="display:${items.some(k=>H[k].preg)?'block':'none'}">Contains herbs to avoid if pregnant or nursing.</div>
-  <h5>Directions</h5><ul class="dir"><li>Use about 3 g per cup, ${Math.ceil(T/3)} cups a day (${T} g in all).</li><li>Brew at <b>${tF} F / ${tC} C</b> for <b>${mn} minutes</b>.</li><li>Cover the cup or pot while it steeps.</li><li>If no improvement after 2 weeks, talk to your clinician.</li></ul>
-  <h5>Nightly tracker</h5><div class="track">${Array.from({length:nights<=30?nights:30},(_,i)=>`<button onclick="this.classList.toggle('on')">${i+1}</button>`).join('')}</div>
+  <h5>Directions</h5><ul class="dir"><li>Use ${spoons(T/Math.ceil(T/3))} of the blend per cup, ${Math.ceil(T/3)} cups a day.</li><li>Brew at <b>${tF} F / ${tC} C</b> for <b>${mn} minutes</b>.</li><li>Cover the cup or pot while it steeps.</li><li>If no improvement after 2 weeks, talk to your clinician.</li></ul>
+  <h5>Daily tracker</h5><div class="track">${Array.from({length:nights<=30?nights:30},(_,i)=>`<button onclick="this.classList.toggle('on')">${i+1}</button>`).join('')}</div>
   <div class="fine">Adult use. Ask a doctor if pregnant, nursing, or taking medicine. Made with organic herbs. Made in a kitchen that handles tree nuts, wheat and soy. Recipe 7K2-${T}${nights}.<br><span class="todo">[Packer name and address, required on the label]</span> &middot; Not evaluated by the FDA. Not intended to diagnose, treat, cure or prevent any disease.</div>`;
 }
 function order(){cart++;$('cartb').style.display='block';$('cartb').textContent=cart;alert('Prototype: this adds the blend and opens Shopify checkout.')}
