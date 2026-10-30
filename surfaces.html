@@ -7,7 +7,7 @@
 *{box-sizing:border-box}
 body{margin:0;background:radial-gradient(900px 700px at 50% 0%,#12382a 0,var(--bg) 62%) fixed,var(--bg);color:var(--txt);font-family:Manrope,sans-serif;font-weight:300;line-height:1.6;overflow-x:hidden}
 header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;font-family:Cormorant,serif;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);font-size:1rem}
-.cart{position:relative;letter-spacing:0;font-size:1.3rem}.cart b{position:absolute;top:-8px;right:-12px;background:var(--rose);color:#1b2a22;border-radius:999px;font:600 .7rem Manrope;padding:0 6px;min-width:18px;text-align:center;display:none}
+.cart{position:relative;letter-spacing:0;font-size:1.3rem;background:none;border:0;color:inherit;cursor:pointer;padding:10px;margin:-10px;min-width:44px;min-height:44px}.cart b{position:absolute;top:2px;right:0;background:var(--rose);color:#1b2a22;border-radius:999px;font:600 .7rem Manrope;padding:0 6px;min-width:18px;text-align:center;display:none}
 main{max-width:1000px;margin:0 auto;padding:0 20px 60px}
 h1{font-family:Cormorant,serif;font-weight:400;font-size:clamp(2rem,5vw,3rem);text-align:center;margin:20px 0 4px;background:linear-gradient(#fff,var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
 .sub{text-align:center;color:var(--mist);margin:0 auto 10px;max-width:40em}
@@ -22,7 +22,7 @@ h2{font-family:Cormorant,serif;font-weight:400;font-size:1.9rem;margin:56px 0 4p
 .chip{background:#17342a;border:1px solid #e5c77a55;border-radius:999px;padding:3px 6px 3px 12px;font-size:.82rem;cursor:pointer;color:var(--txt)}
 .chip i{font-style:normal;color:var(--mist);margin-left:6px}
 .chip.warn:after{content:"avoid if pregnant or nursing";font-size:.65rem;color:var(--rose);margin-left:6px}
-.nights{display:flex;gap:4px}.nights button{background:none;border:1px solid #e5c77a44;color:var(--mist);border-radius:6px;padding:3px 9px;cursor:pointer;font:inherit;font-size:.8rem}.nights button.on{background:var(--gold);color:#1b2a22}
+.nights{display:flex;gap:8px;align-items:center}.nights .dl{font-size:.75rem;color:var(--mist)}.nights>div{display:flex;gap:4px}.nights button{background:none;border:1px solid #e5c77a44;color:var(--mist);border-radius:6px;padding:3px 9px;cursor:pointer;font:inherit;font-size:.8rem}.nights button.on{background:var(--gold);color:#1b2a22}
 .price{font-family:Cormorant,serif;font-size:1.5rem;color:var(--cream)}
 .btn{background:var(--gold);color:#1b2a22;border:0;border-radius:999px;padding:9px 20px;font:600 .8rem Manrope;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
 .btn2{background:none;border:1px solid #e5c77a66;color:var(--gold);border-radius:999px;padding:8px 14px;font:400 .75rem Manrope;cursor:pointer}
@@ -33,9 +33,32 @@ h2{font-family:Cormorant,serif;font-weight:400;font-size:1.9rem;margin:56px 0 4p
 .line b{font-family:Cormorant,serif;font-size:1.25rem;color:var(--gold);display:block;line-height:1.1}
 .line .pr{float:right;font-family:Cormorant,serif;font-size:1.3rem;color:var(--cream)}
 .line .pw{color:var(--rose);font-size:.75rem}
-.x{float:right;background:none;border:0;color:var(--mist);font-size:1.4rem;cursor:pointer}
+.x{float:right;background:none;border:0;color:var(--mist);font-size:1.6rem;cursor:pointer;min-width:44px;min-height:44px}
 .pregline{flex-basis:100%;font-size:.78rem;color:var(--rose);display:none}
-@media(max-width:620px){.chips,.nights{display:none}.bar{padding:10px}}
+.pz{display:flex;flex-direction:column;line-height:1.1}.sum{font-size:.8rem;color:var(--mist);background:none;border:0;padding:0;text-align:left;cursor:pointer;text-decoration:underline dotted;min-height:24px}
+.act{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+@media(max-width:620px){
+  body{padding-bottom:84px}
+  .track{grid-template-columns:repeat(auto-fill,minmax(44px,1fr))}
+  header{padding:14px 16px;letter-spacing:.3em;font-size:.85rem}
+  main{padding:0 14px 40px}
+  /* the blend panel scrolls with the page; only the price and order buttons stay fixed at the bottom */
+  .bar{position:static;backdrop-filter:none;-webkit-backdrop-filter:none;flex-direction:column;align-items:stretch;gap:12px;padding:14px}
+  .bar .nm b{font-size:1.7rem}
+  .chips{gap:8px}
+  .chip{padding:9px 12px 9px 14px;font-size:.92rem;min-height:44px;display:flex;align-items:center}
+  .chip i{padding:0 4px 0 8px;font-size:1.1rem}
+  .nights{justify-content:space-between}
+  .nights>div{flex:1}.nights button{flex:1;min-height:44px;font-size:.95rem}
+  .act{position:fixed;left:0;right:0;bottom:0;z-index:15;background:#0b1a14;border-top:1px solid #e5c77a55;padding:10px 14px calc(10px + env(safe-area-inset-bottom));display:grid;grid-template-columns:auto 1fr;gap:6px 12px;align-items:center}
+  .act .pz{grid-row:1/3}.act .price{font-size:1.9rem}
+  .act .btn{min-height:44px;width:100%}
+  .act .btn2{display:none}.add-m{display:block;min-height:44px}
+  .seg{min-width:0;flex:1 1 44%;min-height:44px}
+  .card img{height:150px}
+  .drawer{width:100%}
+  .label{padding:20px 18px}.label h4{font-size:2rem}
+}
 /* matrix */
 .matrix{border:1px solid #e5c77a33;border-radius:14px;overflow:hidden;background:#0b1a14;margin-top:14px}
 .row{display:grid;grid-template-columns:150px 1fr;border-top:1px solid #e5c77a22}.row:first-child{border-top:0}
@@ -45,10 +68,19 @@ h2{font-family:Cormorant,serif;font-weight:400;font-size:1.9rem;margin:56px 0 4p
 .seg{border-radius:8px;padding:8px 12px;cursor:pointer;font-size:.88rem;border:2px solid;display:flex;gap:8px;align-items:center;min-width:130px}
 .seg.l1{border-color:var(--l1)}.seg.l2{border-color:var(--l2)}.seg.l3{border-color:var(--l3)}
 .seg.in{background:#ffffff14}.seg.in:before{content:"\2713";font-weight:600}
-.seg.out{opacity:.45;border-style:dashed}
-.seg small{font-size:.65rem;color:var(--rose);display:block;line-height:1.1}
-.seg.ban{opacity:.5;border-style:dotted;cursor:not-allowed}
+.seg.out{opacity:.7;border-style:dashed}
+.seg small{font-size:.76rem;color:var(--rose);display:block;line-height:1.1}
+.seg.ban{opacity:.7;border-style:dotted;cursor:not-allowed}
 .seg.ban small{color:var(--mist)}
+.add-m{display:none}
+#scrim{position:fixed;inset:0;background:#000b;z-index:19;display:none}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:21;background:#0e211a;border-top:1px solid #e5c77a66;border-radius:16px 16px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom));display:none}
+.sheet b{font-family:Cormorant,serif;font-size:1.4rem;color:var(--cream);font-weight:400;display:block;margin-bottom:10px}
+.sheet div{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.sheet button{min-height:52px;border-radius:10px;border:1px solid #e5c77a66;background:none;color:var(--txt);font:600 1rem Manrope}.sheet button.on{background:var(--gold);color:#1b2a22}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:110px;background:var(--gold);color:#1b2a22;padding:9px 16px;border-radius:999px;font:600 .85rem Manrope;z-index:25;display:none}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.og{color:#4a5a2c;font-weight:700;font-size:.9rem;margin-left:1px}
 .legend{font-size:.75rem;color:var(--mist);padding:10px 16px;border-top:1px solid #e5c77a22}
 @media(max-width:620px){.row{grid-template-columns:1fr}}
 /* herb card */
@@ -60,15 +92,15 @@ h2{font-family:Cormorant,serif;font-weight:400;font-size:1.9rem;margin:56px 0 4p
 .card h3{font-family:Cormorant,serif;font-weight:600;font-size:1.6rem;line-height:1;margin:0;color:var(--cream)}
 .card .lat{font-style:italic;color:var(--mist);font-size:.82rem}
 .badges{display:flex;gap:6px;flex-wrap:wrap}
-.b{font-size:.68rem;padding:2px 9px;border-radius:999px;border:1px solid #e5c77a55;color:var(--gold)}
+.b{font-size:.78rem;padding:2px 9px;border-radius:999px;border:1px solid #e5c77a55;color:var(--gold)}
 .b.l1{border-color:var(--l1);color:var(--l1)}.b.l2{border-color:var(--l2);color:var(--l2)}.b.l3{border-color:var(--l3);color:var(--l3)}
 .b.w{border-color:var(--rose);color:var(--rose)}.b.o{border-color:#9fc7a8;color:#9fc7a8}
 .facts{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;font-size:.82rem}.facts dt{color:var(--mist)}.facts dd{margin:0}
-.src{font-size:.75rem;color:var(--mist)}.src a{color:var(--gold);text-decoration:none;border-bottom:1px dotted #e5c77a77}
-.prov{font-size:.68rem;color:var(--mist);opacity:.8}
+.src{font-size:.82rem;color:var(--mist)}.src small{font-size:.78rem}.src a{display:inline-block;padding:10px 2px;color:var(--gold);text-decoration:none;border-bottom:1px dotted #e5c77a77}
+.prov{font-size:.78rem;color:var(--mist);opacity:.8}
 .card .ft{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:6px}
-.card .ft a{font-size:.8rem;color:var(--gold)}
-.tog{background:none;border:1px solid var(--gold);color:var(--gold);border-radius:999px;padding:6px 14px;cursor:pointer;font:600 .72rem Manrope;letter-spacing:.06em}
+.card .ft a{font-size:.85rem;color:var(--gold);display:inline-block;padding:12px 4px}
+.tog{background:none;border:1px solid var(--gold);color:var(--gold);border-radius:999px;padding:10px 16px;min-height:44px;cursor:pointer;font:600 .8rem Manrope;letter-spacing:.06em}
 .card.in .tog{background:var(--gold);color:#1b2a22}
 /* label */
 .labelwrap{display:flex;justify-content:center;margin-top:16px}
@@ -79,22 +111,24 @@ h2{font-family:Cormorant,serif;font-weight:400;font-size:1.9rem;margin:56px 0 4p
 .label h4{font-family:Cormorant,serif;font-weight:700;font-size:2.4rem;line-height:1;margin:6px 0 2px;color:#2b2a1f}
 .label .goal{font-size:.82rem;color:#5b5a3f}
 .label .meta{display:flex;justify-content:space-between;font-size:.78rem;border-top:1px solid #cdbf98;border-bottom:1px solid #cdbf98;padding:6px 0;margin:12px 0}
-.label h5{font:700 .68rem Manrope;letter-spacing:.2em;text-transform:uppercase;margin:14px 0 6px;color:#6b5a2a}
+.label h5{font:700 .76rem Manrope;letter-spacing:.2em;text-transform:uppercase;margin:14px 0 6px;color:#6b5a2a}
 .ing{display:flex;gap:14px;align-items:center}
 .ing ul{list-style:none;margin:0;padding:0;font-size:.85rem;flex:1}.ing li{display:flex;justify-content:space-between;border-bottom:1px dotted #cdbf98;padding:2px 0}
-.ing li small{color:#7a6f4a}
+.ing li small{color:#55543c;font-size:.76rem}
 .ing li em.pg{display:block;font-style:normal;font-size:.68rem;font-weight:600;color:#b4432a}
 .dir{font-size:.85rem;margin:0;padding-left:18px}.dir li{margin:2px 0}
 .preg{background:#f3d9cc;border:1px solid #d9a58f;border-radius:4px;padding:6px 10px;font-size:.8rem;margin-top:10px;display:none}
-.track{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:6px}
-.track button{aspect-ratio:1;border-radius:50%;border:1.5px solid #8a7a4a;background:none;font:600 .7rem Manrope;color:#6b5a2a;cursor:pointer;padding:0}
-.track button.on{background:#4a5a2c;border-color:#4a5a2c;color:var(--cream)}
-.fine{font-size:.68rem;color:#6b6a4f;margin-top:12px;border-top:1px solid #cdbf98;padding-top:8px;line-height:1.45}
+.track{display:grid;grid-template-columns:1fr 1fr;gap:6px 18px;margin-top:6px}
+.wk{display:flex;align-items:center;gap:6px}.wk i{font:600 .72rem Manrope;font-style:normal;color:#55543c;width:2.6em}.wk div{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;flex:1}
+.track button{flex:1;height:22px;border-radius:5px;border:1.5px solid #8a7a4a;background:none;cursor:pointer;padding:0;position:relative}.track button::after{content:'';position:absolute;inset:-9px -2px}
+.track button.on{background:#4a5a2c;border-color:#4a5a2c}
+.fine{font-size:.76rem;color:#55543c;margin-top:12px;border-top:1px solid #cdbf98;padding-top:8px;line-height:1.45}
 .todo{color:#a0482e}
 footer{text-align:center;color:var(--mist);font-size:.8rem;padding:30px}
 </style></head>
 <body>
-<header><span>Immortal Herbal</span><span class="cart" onclick="openCart()" style="cursor:pointer">&#128722;<b id="cartb">1</b></span></header>
+<style>#cartb{display:none}</style>
+<header><span>Immortal Herbal</span><button class="cart" onclick="openCart()" aria-label="Cart">&#128722;<b id="cartb">0</b></button></header>
 <main>
 <h1>The three surfaces</h1>
 <p class="sub">What a visitor sees after a search: the blend with its herb matrix, the herb cards, and the label. Toggle herbs on any of them and the others follow (one shared selection).</p>
@@ -103,11 +137,14 @@ footer{text-align:center;color:var(--mist);font-size:.8rem;padding:30px}
 <div class="bar" id="bar">
   <div class="nm"><b>Moonlit Meadow</b><span>You searched: &ldquo;I can&rsquo;t fall asleep at night&rdquo;</span></div>
   <div class="chips" id="chips"></div>
-  <div class="nights" id="nights"></div>
-  <div class="price" id="price"></div>
-  <button class="btn" onclick="order()">Order my blend</button>
-  <button class="btn2" onclick="addMore()">Add and search another</button>
+  <div class="nights"><span class="dl">Days</span><div id="nights"></div></div>
   <div class="pregline" id="pregline">Contains herbs to avoid if pregnant or nursing.</div>
+  <button class="btn2 add-m" onclick="addMore()">Add and search another</button>
+  <div class="act">
+    <div class="pz"><div class="price" id="price"></div><button class="sum" id="sum" onclick="openDays()"></button></div>
+    <button class="btn" onclick="order()">Order my blend</button>
+    <button class="btn2" onclick="addMore()">Add and search another</button>
+  </div>
 </div>
 
 <h2 id="matrixh">1. The herb matrix</h2>
@@ -121,9 +158,12 @@ footer{text-align:center;color:var(--mist);font-size:.8rem;padding:30px}
 <h2>3. The label</h2>
 <div class="tag">Printed on the pouch</div>
 <div class="labelwrap"><div class="label" id="label"></div></div>
-<p class="note" style="margin-top:14px">Decided: the label carries an allowlisted goal phrase; the visitor's own words show on screen only. Pending lawyer: the phrase list, food vs supplement panel, packer name and address, "Made with organic herbs" wording.</p>
+<p class="note" style="margin-top:14px">Decided: the label carries an allowlisted goal phrase; the visitor's own words show on screen only. Organic: an asterisk after each organic ingredient on the label, explained in the fine print (Lavender in this sample is not organic, so it has none). Pending lawyer: the phrase list, food vs supplement panel, packer name and address, organic wording.</p>
 </main>
-<div class="drawer" id="drawer"><button class="x" onclick="closeCart()">&times;</button><h3>Your cart</h3><div id="lines"></div>
+<div id="scrim" onclick="closeAll()"></div>
+<div class="sheet" id="daysheet" role="dialog" aria-label="Choose days"><b>How many days?</b><div id="sheetdays"></div></div>
+<div id="toast"></div>
+<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Your cart" tabindex="-1"><button class="x" onclick="closeAll()" aria-label="Close cart">&times;</button><h3>Your cart</h3><div id="lines"></div>
   <div class="ship" style="background:#17342a;color:var(--txt);border:1px solid #e5c77a44">Custom Blend, made to order (ships within 1 week).<br>Made just for you. Ships in up to a week (we order any herb we don't have, then blend and pack). We'll email you when it ships.</div>
   <p class="note" style="text-align:left;margin-top:14px">Shopify's cart and checkout; the made-to-order note sits here, not on the main page. Checkout repeats it in the product title, line property and shipping method name.</p>
   <button class="btn" style="width:100%;margin-top:8px" onclick="alert('Prototype: opens Shopify checkout.')">Checkout</button></div>
@@ -132,13 +172,13 @@ footer{text-align:center;color:var(--mist);font-size:.8rem;padding:30px}
 <script>
 // sample herbs (names, images, brew from herb-db; the rest illustrative)
 const H={
- chamomile:{name:'Chamomile',latin:'Matricaria chamomilla',part:'flower',img:'img/matricaria-chamomilla.jpg',level:1,tF:195,min:7,g:4,preg:false,
+ chamomile:{name:'Chamomile',latin:'Matricaria chamomilla',part:'flower',img:'img/matricaria-chamomilla.jpg',level:1,tF:195,min:7,g:4,preg:false,org:true,
   used:'Traditionally taken in the evening.',ev:'Several small human trials; results mixed on sleep quality.',dose:'2-3 g per cup, up to 3 cups a day',origin:'Egypt, via Frontier Co-op',
   risk:'Low interaction risk. Ragweed-family allergy possible.',src:[['Review, J Clin Med','journal'],['NCCIH fact sheet','reference']]},
- lemonbalm:{name:'Lemon Balm',latin:'Melissa officinalis',part:'leaf',img:'img/melissa-officinalis.jpg',level:2,tF:195,min:7,g:3,preg:false,
+ lemonbalm:{name:'Lemon Balm',latin:'Melissa officinalis',part:'leaf',img:'img/melissa-officinalis.jpg',level:2,tF:195,min:7,g:3,preg:false,org:true,
   used:'Traditionally taken to unwind.',ev:'Small trials and long traditional use; general agreement.',dose:'1.5-4.5 g per cup, up to 3 cups a day',origin:'Albania, via Starwest Botanicals',
   risk:'Low interaction risk. May add to sedatives.',src:[['EMA monograph','reference'],['Herbal reference page','reference']]},
- passion:{name:'Passionflower',latin:'Passiflora incarnata',part:'aerial parts',img:'img/passiflora-incarnata.jpg',level:2,tF:212,min:10,g:2,preg:true,
+ passion:{name:'Passionflower',latin:'Passiflora incarnata',part:'aerial parts',img:'img/passiflora-incarnata.jpg',level:2,tF:212,min:10,g:2,preg:true,org:true,
   used:'Traditionally taken for restlessness.',ev:'A few small trials; general agreement.',dose:'1-2 g per cup, up to 3 cups a day',origin:'Not listed (first-pass review)',
   risk:'Moderate. May add to sedatives. Avoid if pregnant or nursing.',src:[['EMA monograph','reference']]},
  lavender:{name:'Lavender',latin:'Lavandula angustifolia',part:'flower',img:'img/lavandula-angustifolia.jpg',level:3,tF:195,min:5,g:1,preg:false,
@@ -165,9 +205,10 @@ function spoons(g){const tsp=Math.max(.5,Math.round(g/1.5*2)/2);const fr={0:'',.
   return f(tsp)+' teaspoon'+(tsp>1?'s':'')}
 function draw(){
  // bar
- $('chips').innerHTML=[...inB].map(k=>`<span class="chip ${H[k].preg?'warn':''}" onclick="toggle('${k}')">${H[k].name}${H[k].level==3?' (traditional use)':''}<i>&times;</i></span>`).join('');
+ $('chips').innerHTML=[...inB].map(k=>`<span class="chip ${H[k].preg?'warn':''}" onclick="toggle('${k}')">${H[k].name}<i>&times;</i></span>`).join('');
  $('nights').innerHTML=[7,14,30,60].map(n=>`<button class="${n==nights?'on':''}" onclick="nights=${n};draw()">${n}</button>`).join('');
- $('price').textContent='$'+priceOf();
+ $('price').textContent='$'+priceOf();$('sum').textContent=inB.size+(inB.size==1?' herb':' herbs')+' · '+nights+' days';
+ document.querySelectorAll('.btn,.add-m').forEach(b=>b.disabled=!inB.size);
  const hasP=[...inB].some(k=>H[k].preg);$('pregline').style.display=hasP?'block':'none';
  // matrix
  $('matrix').innerHTML=[1,2,3].map(l=>`<div class="row"><div class="rl l${l}"><b>${LV[l][0]} &middot; ${LV[l][1]}</b><span>${LV[l][2]}</span></div><div class="segs">`+
@@ -177,7 +218,7 @@ function draw(){
  // cards
  $('cards').innerHTML=ORDER.filter(k=>!H[k].banned).map(k=>{const h=H[k];return `<div class="card ${inB.has(k)?'in':''}"><img src="${h.img}" alt="${h.name}"><div class="bd">
   <div><h3>${h.name}</h3><div class="lat">${h.latin} &middot; ${h.part}</div></div>
-  <div class="badges"><span class="b l${h.level}">${LV[h.level][0]} &middot; ${LV[h.level][1]}</span><span class="b o">Made with organic herbs</span>${h.preg?'<span class="b w">Avoid if pregnant or nursing</span>':''}</div>
+  <div class="badges"><span class="b l${h.level}">${LV[h.level][0]} &middot; ${LV[h.level][1]}</span>${h.preg?'<span class="b w">Avoid if pregnant or nursing</span>':''}</div>
   <div style="font-size:.88rem">${h.used} ${h.ev}</div>
   <dl class="facts"><dt>Tea dose</dt><dd>${h.dose}</dd><dt>Brew</dt><dd>${h.tF} F, ${h.min} min, covered</dd><dt>Origin</dt><dd>${h.origin}</dd><dt>Risks</dt><dd>${h.risk}</dd></dl>
   <div class="src">Sources: ${h.src.map(s=>`<a href="#">${s[0]}</a> <small>(${s[1]})</small>`).join(' &middot; ')}</div>
@@ -188,17 +229,22 @@ function draw(){
  const items=[...inB];
  $('label').innerHTML=`<div class="top"><div><div class="id">Immortal Herbal &middot; Herbal tea blend</div><h4>Moonlit Meadow</h4><div class="goal">Your goal: Sleep support</div></div><img src="img/mark.png" alt="Immortal Herbal sun and sprig"></div>
   <div class="meta"><span>${nights}-day supply</span><span>Net wt ${Math.round(T*nights)} g (${oz.toFixed(1)} oz)</span></div>
-  <h5>Ingredients</h5><div class="ing">${items.length?ring():''}<ul>${items.map(k=>`<li><span>${H[k].name} <small>(${H[k].part}${H[k].level==3?', traditional use':''})</small>${H[k].preg?'<em class="pg">Avoid if pregnant or nursing</em>':''}</span><span>${H[k].g} g</span></li>`).join('')||'<li>Add a herb to build your blend</li>'}</ul></div>
+  <h5>Ingredients</h5><div class="ing">${items.length?ring():''}<ul>${items.map(k=>`<li><span>${H[k].name}${H[k].org?'<sup class="og">*</sup>':''} <small>(${H[k].part})</small>${H[k].preg?'<em class="pg">Avoid if pregnant or nursing</em>':''}</span><span>${H[k].g} g</span></li>`).join('')||'<li>Add a herb to build your blend</li>'}</ul></div>
   <div class="preg" style="display:${items.some(k=>H[k].preg)?'block':'none'}">Contains herbs to avoid if pregnant or nursing.</div>
   <h5>Directions</h5><ul class="dir"><li>Use ${spoons(T/Math.ceil(T/3))} of the blend per cup, ${Math.ceil(T/3)} cups a day.</li><li>Brew at <b>${tF} F / ${tC} C</b> for <b>${mn} minutes</b>.</li><li>Cover the cup or pot while it steeps.</li><li>If no improvement after 2 weeks, talk to your clinician.</li></ul>
-  <h5>Daily tracker</h5><div class="track">${Array.from({length:nights<=30?nights:30},(_,i)=>`<button onclick="this.classList.toggle('on')">${i+1}</button>`).join('')}</div>
-  <div class="fine">Adult use. Ask a doctor if pregnant, nursing, or taking medicine. Made with organic herbs. Made in a kitchen that handles tree nuts, wheat and soy. Recipe 7K2-${T}${nights}.<br><span class="todo">[Packer name and address, required on the label]</span> &middot; Not evaluated by the FDA. Not intended to diagnose, treat, cure or prevent any disease.</div>`;
+  <h5>Daily tracker</h5><div class="track">${Array.from({length:Math.ceil(nights/7)},(_,w)=>`<div class="wk"><i>Wk ${w+1}</i><div>${Array.from({length:Math.min(7,nights-w*7)},()=>`<button aria-label="Day done" onclick="this.classList.toggle('on')"></button>`).join('')}</div></div>`).join('')}</div>
+  <div class="fine">Adult use. Ask a doctor if pregnant, nursing, or taking medicine. ${items.some(k=>H[k].org)?'<b>* Organic ingredient.</b> ':''}Made in a kitchen that handles tree nuts, wheat and soy. Recipe 7K2-${T}${nights}.<br><span class="todo">[Packer name and address, required on the label]</span> &middot; Not evaluated by the FDA. Not intended to diagnose, treat, cure or prevent any disease.</div>`;
 }
-function addLine(){lines.push({herbs:[...inB].map(k=>H[k].name+' '+H[k].g+' g'),preg:[...inB].some(k=>H[k].preg),days:nights,price:priceOf()});cart=lines.length;$('cartb').style.display='block';$('cartb').textContent=cart}
+function addLine(){if(!inB.size)return false;const key=[...inB].sort().join()+'|'+nights;if(lines.some(l=>l.key===key)){toast('Already in your cart');return false}
+  lines.push({key,herbs:[...inB].map(k=>H[k].name+' '+H[k].g+' g'),preg:[...inB].some(k=>H[k].preg),days:nights,price:priceOf()});cart=lines.length;$('cartb').style.display='block';$('cartb').textContent=cart;return true}
 function renderCart(){$('lines').innerHTML=lines.length?lines.map(l=>`<div class="line"><span class="pr">$${l.price}</span><b>Moonlit Meadow</b>Your goal: Sleep support<br>${l.days}-day supply<br><small>${l.herbs.join(', ')}</small>${l.preg?'<div class="pw">Contains herbs to avoid if pregnant or nursing.</div>':''}</div>`).join(''):'<p class="note" style="text-align:left">Your cart is empty.</p>'}
-function openCart(){renderCart();$('drawer').style.display='block'}
-function closeCart(){$('drawer').style.display='none'}
-function order(){addLine();openCart()}      // real site: add the line, then go straight to Shopify checkout
-function addMore(){addLine()}
+function showScrim(on){$('scrim').style.display=on?'block':'none';document.body.style.overflow=on?'hidden':''}
+function openCart(){renderCart();$('drawer').style.display='block';showScrim(true);$('drawer').focus()}
+function openDays(){$('sheetdays').innerHTML=[7,14,30,60].map(n=>`<button class="${n==nights?'on':''}" onclick="nights=${n};closeAll();draw()">${n}</button>`).join('');$('daysheet').style.display='block';showScrim(true)}
+function closeAll(){$('drawer').style.display='none';$('daysheet').style.display='none';showScrim(false)}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll()});
+let toastT;function toast(msg){const t=$('toast');t.textContent=msg;t.style.display='block';clearTimeout(toastT);toastT=setTimeout(()=>t.style.display='none',1800)}
+function order(){if(addLine()!==false||lines.length)openCart()}      // real site: add the line, then go straight to Shopify checkout
+function addMore(){if(addLine())toast('Added to your cart. Search for another blend.')}
 draw();
 </script></body></html>
