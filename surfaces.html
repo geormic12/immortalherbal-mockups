@@ -81,6 +81,7 @@ h2{font-family:Cormorant,serif;font-weight:400;font-size:1.9rem;margin:56px 0 4p
 #toast{position:fixed;left:50%;transform:translateX(-50%);bottom:110px;background:var(--gold);color:#1b2a22;padding:9px 16px;border-radius:999px;font:600 .85rem Manrope;z-index:25;display:none}
 .btn:disabled{opacity:.4;cursor:not-allowed}
 .og{color:#4a5a2c;font-weight:700;font-size:.9rem;margin-left:1px}
+.sl{font-weight:700;color:var(--gold)}
 .legend{font-size:.75rem;color:var(--mist);padding:10px 16px;border-top:1px solid #e5c77a22}
 @media(max-width:620px){.row{grid-template-columns:1fr}}
 /* herb card */
@@ -96,7 +97,7 @@ h2{font-family:Cormorant,serif;font-weight:400;font-size:1.9rem;margin:56px 0 4p
 .b.l1{border-color:var(--l1);color:var(--l1)}.b.l2{border-color:var(--l2);color:var(--l2)}.b.l3{border-color:var(--l3);color:var(--l3)}
 .b.w{border-color:var(--rose);color:var(--rose)}.b.o{border-color:#9fc7a8;color:#9fc7a8}
 .facts{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;font-size:.82rem}.facts dt{color:var(--mist)}.facts dd{margin:0}
-.src{font-size:.82rem;color:var(--mist)}.src small{font-size:.78rem}.src a{display:inline-block;padding:10px 2px;color:var(--gold);text-decoration:none;border-bottom:1px dotted #e5c77a77}
+.src{font-size:.82rem;color:var(--mist)}.src small{font-size:.78rem}.src a{display:inline-block;padding:7px 2px;color:var(--gold);text-decoration:none;border-bottom:1px dotted #e5c77a77}
 .prov{font-size:.78rem;color:var(--mist);opacity:.8}
 .card .ft{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:6px}
 .card .ft a{font-size:.85rem;color:var(--gold);display:inline-block;padding:12px 4px}
@@ -173,17 +174,17 @@ footer{text-align:center;color:var(--mist);font-size:.8rem;padding:30px}
 // sample herbs (names, images, brew from herb-db; the rest illustrative)
 const H={
  chamomile:{name:'Chamomile',latin:'Matricaria chamomilla',part:'flower',img:'img/matricaria-chamomilla.jpg',level:1,tF:195,min:7,g:4,preg:false,org:true,
-  used:'Traditionally taken in the evening.',ev:'Several small human trials; results mixed on sleep quality.',dose:'2-3 g per cup, up to 3 cups a day',origin:'Egypt, via Frontier Co-op',
-  risk:'Low interaction risk. Ragweed-family allergy possible.',src:[['Review, J Clin Med','journal'],['NCCIH fact sheet','reference']]},
+  what:'Chamomile is a daisy-family plant. Its small, apple-scented flower heads are dried for tea; the German and Roman types are the ones most used.',dose:'2-3 g per cup, up to 3 cups a day',origin:'Egypt / Albania / Bulgaria',
+  risk:'Low interaction risk. Ragweed-family allergy possible.',src:[['Randomized trial on sleep quality, J Adv Nurs',1],['Systematic review of chamomile, Mol Med Rep',1],['EMA herbal monograph',2],['NCCIH fact sheet',2]]},
  lemonbalm:{name:'Lemon Balm',latin:'Melissa officinalis',part:'leaf',img:'img/melissa-officinalis.jpg',level:2,tF:195,min:7,g:3,preg:false,org:true,
-  used:'Traditionally taken to unwind.',ev:'Small trials and long traditional use; general agreement.',dose:'1.5-4.5 g per cup, up to 3 cups a day',origin:'Albania, via Starwest Botanicals',
-  risk:'Low interaction risk. May add to sedatives.',src:[['EMA monograph','reference'],['Herbal reference page','reference']]},
+  what:'Lemon balm is a mint-family herb with lemon-scented leaves. It grows easily in gardens and is dried for tea.',dose:'1.5-4.5 g per cup, up to 3 cups a day',origin:'Albania / Egypt / Poland',
+  risk:'Low interaction risk. May add to sedatives.',src:[['Human trial, Nutrients',1],['EMA herbal monograph',2],['Reference monograph',2],['Herbal reference page',3]]},
  passion:{name:'Passionflower',latin:'Passiflora incarnata',part:'aerial parts',img:'img/passiflora-incarnata.jpg',level:2,tF:212,min:10,g:2,preg:true,org:true,
-  used:'Traditionally taken for restlessness.',ev:'A few small trials; general agreement.',dose:'1-2 g per cup, up to 3 cups a day',origin:'Not listed (first-pass review)',
-  risk:'Moderate. May add to sedatives. Avoid if pregnant or nursing.',src:[['EMA monograph','reference']]},
+  what:'Passionflower is a climbing vine native to the southeastern United States. The leaves, stems and flowers (aerial parts) are dried for tea.',dose:'1-2 g per cup, up to 3 cups a day',origin:'Albania / India / Peru',
+  risk:'Moderate. May add to sedatives. Avoid if pregnant or nursing.',src:[['Human trial, Phytother Res',1],['EMA herbal monograph',2],['Reference monograph',2],['Herbal reference page',3]]},
  lavender:{name:'Lavender',latin:'Lavandula angustifolia',part:'flower',img:'img/lavandula-angustifolia.jpg',level:3,tF:195,min:5,g:1,preg:false,
-  used:'Folk use as an evening tea.',ev:'Folk use, little evidence as a tea.',dose:'1-2 g per cup',origin:'France, via Mountain Rose Herbs',
-  risk:'Low interaction risk.',src:[['Herbal reference page','reference']]},
+  what:'Lavender is a mint-family shrub from the Mediterranean. The purple flower buds are dried and used in teas and baking.',dose:'1-2 g per cup',origin:'France / Bulgaria / Egypt',
+  risk:'Low interaction risk.',src:[['Review of lavender studies, Phytomedicine',1],['EMA herbal monograph',2],['Herbal reference page',3],['Folk herbal tradition summary',3]]},
  kava:{name:'Kava',latin:'Piper methysticum',banned:'Not offered: liver safety concerns (FDA advisory).',level:2}
 };
 const ORDER=['chamomile','lemonbalm','passion','lavender','kava'];
@@ -219,11 +220,11 @@ function draw(){
  $('cards').innerHTML=ORDER.filter(k=>!H[k].banned).map(k=>{const h=H[k];return `<div class="card ${inB.has(k)?'in':''}"><img src="${h.img}" alt="${h.name}"><div class="bd">
   <div><h3>${h.name}</h3><div class="lat">${h.latin} &middot; ${h.part}</div></div>
   <div class="badges"><span class="b l${h.level}">${LV[h.level][0]} &middot; ${LV[h.level][1]}</span>${h.preg?'<span class="b w">Avoid if pregnant or nursing</span>':''}</div>
-  <div style="font-size:.88rem">${h.used} ${h.ev}</div>
+  <div style="font-size:.9rem">${h.what}</div>
   <dl class="facts"><dt>Tea dose</dt><dd>${h.dose}</dd><dt>Brew</dt><dd>${h.tF} F, ${h.min} min, covered</dd><dt>Origin</dt><dd>${h.origin}</dd><dt>Risks</dt><dd>${h.risk}</dd></dl>
-  <div class="src">Sources: ${h.src.map(s=>`<a href="#">${s[0]}</a> <small>(${s[1]})</small>`).join(' &middot; ')}</div>
+  <div class="src"><b>Sources</b>${[1,2,3].map(l=>{const L=h.src.filter(x=>x[1]==l);return L.length?`<div><small class="sl l${l}">Level ${l}</small> ${L.map(x=>`<a href="#">${x[0]}</a>`).join(' &middot; ')}</div>`:''}).join('')}</div>
   <div class="prov">Dose, origin and risks: first-pass review, not yet source-checked.</div>
-  <div class="ft"><a href="#">Learn more</a><button class="tog" onclick="toggle('${k}')">${inB.has(k)?'In my blend':'Add to blend'}</button></div></div></div>`}).join('');
+  <div class="ft"><button class="tog" onclick="toggle('${k}')">${inB.has(k)?'In my blend':'Add to blend'}</button></div></div></div>`}).join('');
  // label
  const [tF,tC,mn]=brew(),T=tot();const oz=(T*nights/28.35);
  const items=[...inB];
