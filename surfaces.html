@@ -82,6 +82,7 @@ h2{font-family:Cormorant,serif;font-weight:400;font-size:1.9rem;margin:56px 0 4p
 .btn:disabled{opacity:.4;cursor:not-allowed}
 .og{color:#4a5a2c;font-weight:700;font-size:.9rem;margin-left:1px}
 .sl{font-weight:700;color:var(--gold)}
+.pick{min-height:44px;border-radius:10px;border:1px dashed #e5c77a99;background:#0e211a;color:var(--gold);font:600 .9rem Manrope;padding:0 12px;cursor:pointer}
 .legend{font-size:.75rem;color:var(--mist);padding:10px 16px;border-top:1px solid #e5c77a22}
 @media(max-width:620px){.row{grid-template-columns:1fr}}
 /* herb card */
@@ -185,15 +186,26 @@ const H={
  lavender:{name:'Lavender',latin:'Lavandula angustifolia',part:'flower',img:'img/lavandula-angustifolia.jpg',level:3,tF:195,min:5,g:1,preg:false,
   grows:'Dry, sunny Mediterranean hillsides, especially France, and farmed in rows in Bulgaria and beyond.',use:'Herbalists use the flower for nervous tension and trouble sleeping, for digestive upset, and as a scent for relaxation.',dose:'1-2 g per cup',origin:'France / Bulgaria / Egypt',
   risk:'Low interaction risk.',src:[['Review of lavender studies, Phytomedicine',1],['EMA herbal monograph',2],['Herbal reference page',3],['Folk herbal tradition summary',3]]},
+ peppermint:{name:'Peppermint',latin:'Mentha x piperita',part:'leaf',img:'img/melissa-officinalis.jpg',own:true,tF:212,min:5,g:2,preg:false,org:true,
+  grows:'Damp, temperate ground across Europe and North America; farmed widely in the United States, Morocco and India.',use:'Herbalists use the leaf for upset stomach, gas and as a cooling, refreshing tea.',
+  dose:'1-2 g per cup, up to 3 cups a day',origin:'United States / Morocco / India',risk:'Low interaction risk. May worsen reflux.',src:[['Herbal reference page',3]]},
+ ginger:{name:'Ginger',latin:'Zingiber officinale',part:'root',img:'img/matricaria-chamomilla.jpg',own:true,tF:212,min:10,g:2,preg:false,org:true,
+  grows:'Warm, humid tropics; the root is farmed in India, China, Nigeria and Peru.',use:'Herbalists use the root for nausea, upset stomach and as a warming tea.',
+  dose:'1-2 g per cup, up to 3 cups a day',origin:'India / China / Peru',risk:'Low interaction risk. May add to blood thinners.',src:[['Herbal reference page',3]]},
+ rose:{name:'Rose Petals',latin:'Rosa damascena',part:'petal',img:'img/lavandula-angustifolia.jpg',own:true,tF:195,min:5,g:1,preg:false,org:false,
+  grows:'Sunny gardens and fields; the petals are farmed in Bulgaria, Turkey and Iran.',use:'Herbalists use the petals as a mild, fragrant tea for low mood and tension, and as a gentle astringent.',
+  dose:'1-2 g per cup',origin:'Bulgaria / Turkey / Iran',risk:'Low interaction risk.',src:[['Herbal reference page',3]]},
  kava:{name:'Kava',latin:'Piper methysticum',banned:'Not offered: liver safety concerns (FDA advisory).',level:2}
 };
 const ORDER=['chamomile','lemonbalm','passion','lavender','kava'];
+const OWN=['peppermint','ginger','rose'];
 const LV={1:['Level 1','Studied','Human studies in journals'],2:['Level 2','General agreement','Reference works and traditional agreement'],3:['Level 3','Folk','Long use, little evidence']};
 let inB=new Set(['chamomile','lemonbalm','passion']),nights=14,cart=0,lines=[];
 const $=id=>document.getElementById(id);
 function tot(){return [...inB].reduce((s,k)=>s+H[k].g,0)}
 function brew(){let g=0,t=0,m=0;inB.forEach(k=>{g+=H[k].g;t+=H[k].g*H[k].tF;m+=H[k].g*H[k].min});if(!g)return[0,0,0];return[Math.round(t/g/5)*5,Math.round((Math.round(t/g/5)*5-32)*5/9),Math.round(m/g)]}
 function priceOf(){const cost=tot()*nights/28.35*1.4+1.2;return Math.ceil(cost*3/5)*5}
+function addOwn(k){if(k&&!inB.has(k)&&inB.size<6){inB.add(k);draw()}}
 function toggle(k){if(H[k].banned)return;inB.has(k)?inB.delete(k):inB.add(k);if(inB.size>6)inB.delete(k);draw()}
 function ring(){const cols=['#4a5a2c','#8a9a4a','#b8914a','#7a6f4a','#a89bc7'];let a=-Math.PI/2,s='',T=tot(),i=0;
  inB.forEach(k=>{const f=H[k].g/T,b=a+f*2*Math.PI,x1=45+36*Math.cos(a),y1=45+36*Math.sin(a),x2=45+36*Math.cos(b),y2=45+36*Math.sin(b);
@@ -215,14 +227,17 @@ function draw(){
  $('matrix').innerHTML=[1,2,3].map(l=>`<div class="row"><div class="rl l${l}"><b>${LV[l][0]} &middot; ${LV[l][1]}</b><span>${LV[l][2]}</span></div><div class="segs">`+
   ORDER.filter(k=>H[k].level==l).map(k=>{const h=H[k];if(h.banned)return `<div class="seg l${l} ban"><div>${h.name}<small>${h.banned}</small></div></div>`;
    return `<div class="seg l${l} ${inB.has(k)?'in':'out'}" onclick="toggle('${k}')"><div>${h.name}${h.preg?'<small>Avoid if pregnant or nursing</small>':''}</div></div>`}).join('')+`</div></div>`).join('')+
+  `<div class="row own"><div class="rl"><b>Your own picks</b><span>Not ranked. Your personal taste.</span></div><div class="segs">`+
+  OWN.filter(k=>inB.has(k)).map(k=>`<div class="seg in" onclick="toggle('${k}')"><div>${H[k].name}</div></div>`).join('')+
+  `<select class="pick" aria-label="Add your own herb" onchange="addOwn(this.value)"><option value="">+ Add your own herb</option>${OWN.filter(k=>!inB.has(k)).map(k=>`<option value="${k}">${H[k].name}</option>`).join('')}</select></div></div>`+
   `<div class="legend">Tap a herb to add it to or remove it from your blend. Solid outline with a check = in your blend. Dashed = not in your blend. Dotted = not offered.</div>`;
  // cards
- $('cards').innerHTML=(inB.size?'':'<p class="note" style="text-align:left">No herbs in your blend. Tap a herb in the matrix above to add it and its card appears here.</p>')+ORDER.filter(k=>inB.has(k)).map(k=>{const h=H[k];return `<div class="card ${inB.has(k)?'in':''}"><img src="${h.img}" alt="${h.name}"><div class="bd">
+ $('cards').innerHTML=(inB.size?'':'<p class="note" style="text-align:left">No herbs in your blend. Tap a herb in the matrix above to add it and its card appears here.</p>')+[...ORDER,...OWN].filter(k=>inB.has(k)&&!H[k].banned).map(k=>{const h=H[k];return `<div class="card ${inB.has(k)?'in':''}"><img src="${h.img}" alt="${h.name}"><div class="bd">
   <div><h3>${h.name}</h3><div class="lat">${h.latin} &middot; ${h.part}</div></div>
-  <div class="badges"><span class="b l${h.level}">${LV[h.level][0]} &middot; ${LV[h.level][1]}</span>${h.preg?'<span class="b w">Avoid if pregnant or nursing</span>':''}</div>
+  <div class="badges">${h.own?'<span class="b">Your pick</span>':`<span class="b l${h.level}">${LV[h.level][0]} &middot; ${LV[h.level][1]}</span>`}${h.preg?'<span class="b w">Avoid if pregnant or nursing</span>':''}</div>
   <dl class="facts"><dt>Grows</dt><dd>${h.grows}</dd><dt>Used for</dt><dd>${h.use}</dd></dl>
   <dl class="facts"><dt>Tea dose</dt><dd>${h.dose}</dd><dt>Brew</dt><dd>${h.tF} F, ${h.min} min, covered</dd><dt>Origin</dt><dd>${h.origin}</dd><dt>Risks</dt><dd>${h.risk}</dd></dl>
-  <div class="src"><b>Sources</b>${[1,2,3].map(l=>{const L=h.src.filter(x=>x[1]==l);return L.length?`<div><small class="sl l${l}">Level ${l}</small> ${L.map(x=>`<a href="#">${x[0]}</a>`).join(' &middot; ')}</div>`:''}).join('')}</div>
+  ${h.own?'':`<div class="src"><b>Sources</b>${[1,2,3].map(l=>{const L=h.src.filter(x=>x[1]==l);return L.length?`<div><small class="sl l${l}">Level ${l}</small> ${L.map(x=>`<a href="#">${x[0]}</a>`).join(' &middot; ')}</div>`:''}).join('')}</div>`}
   <div class="prov">Dose, origin and risks: first-pass review, not yet source-checked.</div>
   <div class="ft"><button class="tog" onclick="toggle('${k}')">Remove from blend</button></div></div></div>`}).join('');
  // label
