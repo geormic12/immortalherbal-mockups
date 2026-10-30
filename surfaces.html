@@ -67,7 +67,7 @@ h2{font-family:Cormorant,serif;font-weight:400;font-size:1.9rem;margin:56px 0 4p
 .labelwrap{display:flex;justify-content:center;margin-top:16px}
 .label{width:min(520px,100%);background:var(--cream);color:var(--ink);border-radius:6px;padding:26px 28px;font-family:Manrope;font-weight:400;box-shadow:0 20px 50px -20px #000;border:1px solid #cdbf98}
 .label .top{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}
-.label .top img{width:78px;height:auto;flex:none}
+.label .top img{width:64px;height:auto;flex:none}
 .label .id{font-family:Cormorant,serif;letter-spacing:.3em;font-size:.7rem;text-transform:uppercase;color:#6b5a2a}
 .label h4{font-family:Cormorant,serif;font-weight:700;font-size:2.4rem;line-height:1;margin:6px 0 2px;color:#2b2a1f}
 .label .goal{font-size:.82rem;color:#5b5a3f}
@@ -170,7 +170,7 @@ function draw(){
  // label
  const [tF,tC,mn]=brew(),T=tot();const oz=(T*nights/28.35);
  const items=[...inB];
- $('label').innerHTML=`<div class="top"><div><div class="id">Immortal Herbal &middot; Herbal tea blend</div><h4>Moonlit Meadow</h4><div class="goal">Your goal: Sleep support</div></div><img src="img/logo.png" alt="Immortal Herbal"></div>
+ $('label').innerHTML=`<div class="top"><div><div class="id">Immortal Herbal &middot; Herbal tea blend</div><h4>Moonlit Meadow</h4><div class="goal">Your goal: Sleep support</div></div><img src="img/mark.png" alt="Immortal Herbal sun and sprig"></div>
   <div class="meta"><span>${nights}-day supply</span><span>Net wt ${Math.round(T*nights)} g (${oz.toFixed(1)} oz)</span></div>
   <h5>Ingredients</h5><div class="ing">${items.length?ring():''}<ul>${items.map(k=>`<li><span>${H[k].name} <small>(${H[k].part}${H[k].level==3?', traditional use':''})</small></span><span>${H[k].g} g a day</span></li>`).join('')||'<li>Add a herb to build your blend</li>'}</ul></div>
   <div class="preg" style="display:${items.some(k=>H[k].preg)?'block':'none'}">Contains herbs to avoid if pregnant or nursing.</div>
