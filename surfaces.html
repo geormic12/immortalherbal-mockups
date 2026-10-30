@@ -26,7 +26,14 @@ h2{font-family:Cormorant,serif;font-weight:400;font-size:1.9rem;margin:56px 0 4p
 .price{font-family:Cormorant,serif;font-size:1.5rem;color:var(--cream)}
 .btn{background:var(--gold);color:#1b2a22;border:0;border-radius:999px;padding:9px 20px;font:600 .8rem Manrope;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
 .btn2{background:none;border:1px solid #e5c77a66;color:var(--gold);border-radius:999px;padding:8px 14px;font:400 .75rem Manrope;cursor:pointer}
-.ship{flex-basis:100%;font-size:.75rem;color:var(--mist)}
+.ship{font-size:.8rem;color:#5b5a3f;background:#f3ead2;border-radius:6px;padding:8px 10px;margin-top:10px}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(400px,100%);background:#0b1a14;border-left:1px solid #e5c77a55;z-index:20;padding:20px;overflow:auto;display:none;box-shadow:-20px 0 50px #000a}
+.drawer h3{font-family:Cormorant,serif;font-weight:400;font-size:1.8rem;margin:0 0 10px;color:var(--cream)}
+.line{border:1px solid #e5c77a33;border-radius:10px;padding:12px 14px;margin-bottom:10px;background:#0e211a;font-size:.88rem}
+.line b{font-family:Cormorant,serif;font-size:1.25rem;color:var(--gold);display:block;line-height:1.1}
+.line .pr{float:right;font-family:Cormorant,serif;font-size:1.3rem;color:var(--cream)}
+.line .pw{color:var(--rose);font-size:.75rem}
+.x{float:right;background:none;border:0;color:var(--mist);font-size:1.4rem;cursor:pointer}
 .pregline{flex-basis:100%;font-size:.78rem;color:var(--rose);display:none}
 @media(max-width:620px){.chips,.nights{display:none}.bar{padding:10px}}
 /* matrix */
@@ -87,7 +94,7 @@ h2{font-family:Cormorant,serif;font-weight:400;font-size:1.9rem;margin:56px 0 4p
 footer{text-align:center;color:var(--mist);font-size:.8rem;padding:30px}
 </style></head>
 <body>
-<header><span>Immortal Herbal</span><span class="cart">&#128722;<b id="cartb">1</b></span></header>
+<header><span>Immortal Herbal</span><span class="cart" onclick="openCart()" style="cursor:pointer">&#128722;<b id="cartb">1</b></span></header>
 <main>
 <h1>The three surfaces</h1>
 <p class="sub">What a visitor sees after a search: the blend with its herb matrix, the herb cards, and the label. Toggle herbs on any of them and the others follow (one shared selection).</p>
@@ -101,7 +108,6 @@ footer{text-align:center;color:var(--mist);font-size:.8rem;padding:30px}
   <button class="btn" onclick="order()">Order my blend</button>
   <button class="btn2" onclick="addMore()">Add and search another</button>
   <div class="pregline" id="pregline">Contains herbs to avoid if pregnant or nursing.</div>
-  <div class="ship">Made just for you. Ships in up to a week (we order any herb we don't have, then blend and pack). We'll email you when it ships.</div>
 </div>
 
 <h2 id="matrixh">1. The herb matrix</h2>
@@ -117,6 +123,10 @@ footer{text-align:center;color:var(--mist);font-size:.8rem;padding:30px}
 <div class="labelwrap"><div class="label" id="label"></div></div>
 <p class="note" style="margin-top:14px">Decided: the label carries an allowlisted goal phrase; the visitor's own words show on screen only. Pending lawyer: the phrase list, food vs supplement panel, packer name and address, "Made with organic herbs" wording.</p>
 </main>
+<div class="drawer" id="drawer"><button class="x" onclick="closeCart()">&times;</button><h3>Your cart</h3><div id="lines"></div>
+  <div class="ship" style="background:#17342a;color:var(--txt);border:1px solid #e5c77a44">Custom Blend, made to order (ships within 1 week).<br>Made just for you. Ships in up to a week (we order any herb we don't have, then blend and pack). We'll email you when it ships.</div>
+  <p class="note" style="text-align:left;margin-top:14px">Shopify's cart and checkout; the made-to-order note sits here, not on the main page. Checkout repeats it in the product title, line property and shipping method name.</p>
+  <button class="btn" style="width:100%;margin-top:8px" onclick="alert('Prototype: opens Shopify checkout.')">Checkout</button></div>
 <footer>Educational information, not medical advice. Talk to your doctor or pharmacist, especially if you take medicine.</footer>
 
 <script>
@@ -138,7 +148,7 @@ const H={
 };
 const ORDER=['chamomile','lemonbalm','passion','lavender','kava'];
 const LV={1:['Level 1','Studied','Human studies in journals'],2:['Level 2','General agreement','Reference works and traditional agreement'],3:['Level 3','Folk','Long use, little evidence']};
-let inB=new Set(['chamomile','lemonbalm','passion']),nights=14,cart=0;
+let inB=new Set(['chamomile','lemonbalm','passion']),nights=14,cart=0,lines=[];
 const $=id=>document.getElementById(id);
 function tot(){return [...inB].reduce((s,k)=>s+H[k].g,0)}
 function brew(){let g=0,t=0,m=0;inB.forEach(k=>{g+=H[k].g;t+=H[k].g*H[k].tF;m+=H[k].g*H[k].min});if(!g)return[0,0,0];return[Math.round(t/g/5)*5,Math.round((Math.round(t/g/5)*5-32)*5/9),Math.round(m/g)]}
@@ -184,7 +194,11 @@ function draw(){
   <h5>Daily tracker</h5><div class="track">${Array.from({length:nights<=30?nights:30},(_,i)=>`<button onclick="this.classList.toggle('on')">${i+1}</button>`).join('')}</div>
   <div class="fine">Adult use. Ask a doctor if pregnant, nursing, or taking medicine. Made with organic herbs. Made in a kitchen that handles tree nuts, wheat and soy. Recipe 7K2-${T}${nights}.<br><span class="todo">[Packer name and address, required on the label]</span> &middot; Not evaluated by the FDA. Not intended to diagnose, treat, cure or prevent any disease.</div>`;
 }
-function order(){cart++;$('cartb').style.display='block';$('cartb').textContent=cart;alert('Prototype: this adds the blend and opens Shopify checkout.')}
-function addMore(){cart++;$('cartb').style.display='block';$('cartb').textContent=cart}
+function addLine(){lines.push({herbs:[...inB].map(k=>H[k].name+' '+H[k].g+' g'),preg:[...inB].some(k=>H[k].preg),days:nights,price:priceOf()});cart=lines.length;$('cartb').style.display='block';$('cartb').textContent=cart}
+function renderCart(){$('lines').innerHTML=lines.length?lines.map(l=>`<div class="line"><span class="pr">$${l.price}</span><b>Moonlit Meadow</b>Your goal: Sleep support<br>${l.days}-day supply<br><small>${l.herbs.join(', ')}</small>${l.preg?'<div class="pw">Contains herbs to avoid if pregnant or nursing.</div>':''}</div>`).join(''):'<p class="note" style="text-align:left">Your cart is empty.</p>'}
+function openCart(){renderCart();$('drawer').style.display='block'}
+function closeCart(){$('drawer').style.display='none'}
+function order(){addLine();openCart()}      // real site: add the line, then go straight to Shopify checkout
+function addMore(){addLine()}
 draw();
 </script></body></html>
