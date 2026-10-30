@@ -217,14 +217,14 @@ function draw(){
    return `<div class="seg l${l} ${inB.has(k)?'in':'out'}" onclick="toggle('${k}')"><div>${h.name}${h.preg?'<small>Avoid if pregnant or nursing</small>':''}</div></div>`}).join('')+`</div></div>`).join('')+
   `<div class="legend">Tap a herb to add it to or remove it from your blend. Solid outline with a check = in your blend. Dashed = not in your blend. Dotted = not offered.</div>`;
  // cards
- $('cards').innerHTML=ORDER.filter(k=>!H[k].banned).map(k=>{const h=H[k];return `<div class="card ${inB.has(k)?'in':''}"><img src="${h.img}" alt="${h.name}"><div class="bd">
+ $('cards').innerHTML=(inB.size?'':'<p class="note" style="text-align:left">No herbs in your blend. Tap a herb in the matrix above to add it and its card appears here.</p>')+ORDER.filter(k=>inB.has(k)).map(k=>{const h=H[k];return `<div class="card ${inB.has(k)?'in':''}"><img src="${h.img}" alt="${h.name}"><div class="bd">
   <div><h3>${h.name}</h3><div class="lat">${h.latin} &middot; ${h.part}</div></div>
   <div class="badges"><span class="b l${h.level}">${LV[h.level][0]} &middot; ${LV[h.level][1]}</span>${h.preg?'<span class="b w">Avoid if pregnant or nursing</span>':''}</div>
   <dl class="facts"><dt>Grows</dt><dd>${h.grows}</dd><dt>Used for</dt><dd>${h.use}</dd></dl>
   <dl class="facts"><dt>Tea dose</dt><dd>${h.dose}</dd><dt>Brew</dt><dd>${h.tF} F, ${h.min} min, covered</dd><dt>Origin</dt><dd>${h.origin}</dd><dt>Risks</dt><dd>${h.risk}</dd></dl>
   <div class="src"><b>Sources</b>${[1,2,3].map(l=>{const L=h.src.filter(x=>x[1]==l);return L.length?`<div><small class="sl l${l}">Level ${l}</small> ${L.map(x=>`<a href="#">${x[0]}</a>`).join(' &middot; ')}</div>`:''}).join('')}</div>
   <div class="prov">Dose, origin and risks: first-pass review, not yet source-checked.</div>
-  <div class="ft"><button class="tog" onclick="toggle('${k}')">${inB.has(k)?'In my blend':'Add to blend'}</button></div></div></div>`}).join('');
+  <div class="ft"><button class="tog" onclick="toggle('${k}')">Remove from blend</button></div></div></div>`}).join('');
  // label
  const [tF,tC,mn]=brew(),T=tot();const oz=(T*nights/28.35);
  const items=[...inB];
