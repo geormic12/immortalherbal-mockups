@@ -174,16 +174,16 @@ footer{text-align:center;color:var(--mist);font-size:.8rem;padding:30px}
 // sample herbs (names, images, brew from herb-db; the rest illustrative)
 const H={
  chamomile:{name:'Chamomile',latin:'Matricaria chamomilla',part:'flower',img:'img/matricaria-chamomilla.jpg',level:1,tF:195,min:7,g:4,preg:false,org:true,
-  what:'Grows wild and in fields across Europe, western Asia and Egypt, loving sun and poor, sandy soil. Gentle and sunny, a small daisy that smells of apples and opens its face with the morning. Its flower heads hold the fragrant oils that give the tea its soft, honeyed taste, and the plant feeds bees and butterflies through summer.',dose:'2-3 g per cup, up to 3 cups a day',origin:'Egypt / Albania / Bulgaria',
+  grows:'Wild and farmed across Europe, western Asia and Egypt, in sunny fields with poor, sandy soil.',use:'Herbalists use the flowers for restlessness and trouble sleeping, upset stomach and gas, and as a mild soothing wash for the skin.',dose:'2-3 g per cup, up to 3 cups a day',origin:'Egypt / Albania / Bulgaria',
   risk:'Low interaction risk. Ragweed-family allergy possible.',src:[['Randomized trial on sleep quality, J Adv Nurs',1],['Systematic review of chamomile, Mol Med Rep',1],['EMA herbal monograph',2],['NCCIH fact sheet',2]]},
  lemonbalm:{name:'Lemon Balm',latin:'Melissa officinalis',part:'leaf',img:'img/melissa-officinalis.jpg',level:2,tF:195,min:7,g:3,preg:false,org:true,
-  what:'Grows in sunny gardens and hedgerows from southern Europe to central Asia and spreads happily on its own. Bright and cheerful, a mint cousin that smells of lemon the moment you brush a leaf. Its leaves carry citrusy oils that make a fresh, mild tea, and its flowers are a favorite of honeybees (its Latin name, Melissa, means honeybee).',dose:'1.5-4.5 g per cup, up to 3 cups a day',origin:'Albania / Egypt / Poland',
+  grows:'Sunny gardens and hedgerows from southern Europe to central Asia; it spreads easily and is farmed in Albania, Egypt and Poland.',use:'Herbalists use the leaf to ease nervous tension and trouble sleeping, to settle the stomach, and on the skin for cold sores.',dose:'1.5-4.5 g per cup, up to 3 cups a day',origin:'Albania / Egypt / Poland',
   risk:'Low interaction risk. May add to sedatives.',src:[['Human trial, Nutrients',1],['EMA herbal monograph',2],['Reference monograph',2],['Herbal reference page',3]]},
  passion:{name:'Passionflower',latin:'Passiflora incarnata',part:'aerial parts',img:'img/passiflora-incarnata.jpg',level:2,tF:212,min:10,g:2,preg:true,org:true,
-  what:'A climbing vine that grows wild across the southeastern United States and is farmed in warm regions of India, Peru and the Mediterranean. Wild and exotic, it twines through fences and trees and opens one of the most elaborate flowers in the plant world. Its leaves, stems and flowers are dried together for a grassy, earthy tea, and the vine later sets an edible fruit (the maypop).',dose:'1-2 g per cup, up to 3 cups a day',origin:'Albania / India / Peru',
+  grows:'A climbing vine, wild across the southeastern United States and farmed in warm regions of India, Peru and the Mediterranean.',use:'Herbalists use the leaf, stem and flower for anxiety, restlessness and trouble sleeping.',dose:'1-2 g per cup, up to 3 cups a day',origin:'Albania / India / Peru',
   risk:'Moderate. May add to sedatives. Avoid if pregnant or nursing.',src:[['Human trial, Phytother Res',1],['EMA herbal monograph',2],['Reference monograph',2],['Herbal reference page',3]]},
  lavender:{name:'Lavender',latin:'Lavandula angustifolia',part:'flower',img:'img/lavandula-angustifolia.jpg',level:3,tF:195,min:5,g:1,preg:false,
-  what:'Grows on dry, sunny hillsides around the Mediterranean, especially France, and is farmed in rows across Bulgaria and beyond. Quiet and timeless, the purple of an evening field. Its flower buds hold strong aromatic oils, which is why it flavors teas and baking, scents linens and draws bees all summer.',dose:'1-2 g per cup',origin:'France / Bulgaria / Egypt',
+  grows:'Dry, sunny Mediterranean hillsides, especially France, and farmed in rows in Bulgaria and beyond.',use:'Herbalists use the flower for nervous tension and trouble sleeping, for digestive upset, and as a scent for relaxation.',dose:'1-2 g per cup',origin:'France / Bulgaria / Egypt',
   risk:'Low interaction risk.',src:[['Review of lavender studies, Phytomedicine',1],['EMA herbal monograph',2],['Herbal reference page',3],['Folk herbal tradition summary',3]]},
  kava:{name:'Kava',latin:'Piper methysticum',banned:'Not offered: liver safety concerns (FDA advisory).',level:2}
 };
@@ -220,7 +220,7 @@ function draw(){
  $('cards').innerHTML=ORDER.filter(k=>!H[k].banned).map(k=>{const h=H[k];return `<div class="card ${inB.has(k)?'in':''}"><img src="${h.img}" alt="${h.name}"><div class="bd">
   <div><h3>${h.name}</h3><div class="lat">${h.latin} &middot; ${h.part}</div></div>
   <div class="badges"><span class="b l${h.level}">${LV[h.level][0]} &middot; ${LV[h.level][1]}</span>${h.preg?'<span class="b w">Avoid if pregnant or nursing</span>':''}</div>
-  <div style="font-size:.9rem">${h.what}</div>
+  <dl class="facts"><dt>Grows</dt><dd>${h.grows}</dd><dt>Used for</dt><dd>${h.use}</dd></dl>
   <dl class="facts"><dt>Tea dose</dt><dd>${h.dose}</dd><dt>Brew</dt><dd>${h.tF} F, ${h.min} min, covered</dd><dt>Origin</dt><dd>${h.origin}</dd><dt>Risks</dt><dd>${h.risk}</dd></dl>
   <div class="src"><b>Sources</b>${[1,2,3].map(l=>{const L=h.src.filter(x=>x[1]==l);return L.length?`<div><small class="sl l${l}">Level ${l}</small> ${L.map(x=>`<a href="#">${x[0]}</a>`).join(' &middot; ')}</div>`:''}).join('')}</div>
   <div class="prov">Dose, origin and risks: first-pass review, not yet source-checked.</div>
